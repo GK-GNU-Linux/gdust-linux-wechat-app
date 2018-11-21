@@ -1,5 +1,8 @@
 <!--index.wxml-->
 <view class="container">
+  <view style='background-color: #079df2;'>
+    <ad unit-id="adunit-d724125e95c13eb4"></ad>
+  </view>
   <image wx:if="{{banner}}" class="top-banner" src="https://xmcdn.gxgk.cc/static/images/app/banner.jpg"></image>
   <view wx:else class="top-bgcolor"></view>
   <view class="main-box">

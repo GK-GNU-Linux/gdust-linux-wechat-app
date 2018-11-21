@@ -268,6 +268,8 @@ App({
                 console.log("获取用户信息成功")
                 _this.checkCache().then(function () {
                   resolve(res);
+                }).catch(function (e){
+                  console.log(e)
                 })
               } else {
                 _this.showLoadToast("服务器异常")
