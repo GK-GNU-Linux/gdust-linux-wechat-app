@@ -126,6 +126,8 @@ Page({
         _this.initButton();
         _this.getCardData();
       })
+    }).catch(function (e){
+      console.log(e)
     });
   },
   onShow: function () {

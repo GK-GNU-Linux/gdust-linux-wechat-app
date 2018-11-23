@@ -4,6 +4,8 @@ App({
   version: 'v2.0.0', //版本号
   scene: 1001, //场景值
   shareTicket: null, //分享获取相同信息所需ticket
+  session_id: null,
+  is_login: false,
   onLaunch: function(options) {
     console.log(options)
     var _this = this;
@@ -96,6 +98,7 @@ App({
       if (!_this.session_id) { //无登录信息
         _this.session_login().then(function() {
           _this.is_login = true
+          console.log("session登陆")
           _this.checkCache().then(function () {
             resolve();
           })
@@ -103,13 +106,20 @@ App({
           reject(res);
         });
       } else if (!_this.is_login) { //有登录信息,并且为初始化程序
+        console.log("检查登陆状态")
         _this.check_session().then(function() {
           _this.is_login = true
           _this.checkCache().then(function () {
             resolve();
           })
         }).catch(function(res) {
-          reject(res);
+          _this.session_login().then(function () {
+            _this.is_login = true
+            console.log("重新登陆")
+            _this.checkCache().then(function () {
+              resolve();
+            })
+          });
         })
       } else {
         resolve();
@@ -176,11 +186,9 @@ App({
             }
           });
         },
-        fail: function() {
+        fail: function (res) {
           // 没有登录微信
-          _this.session_login().then(function() {
-            reject();
-          });
+          reject(res);
         }
       })
     });
@@ -352,7 +360,6 @@ App({
   },
   cache: {},
   server: require('config').server,
-  is_login: false,
   user: {
     //微信数据
     wx_info: {},
