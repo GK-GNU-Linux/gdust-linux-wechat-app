@@ -31,6 +31,13 @@ Page({
     this.loadData();
     wx.stopPullDownRefresh()
   },
+  onShareAppMessage: function () {
+    return {
+      title: '借阅查询',
+      desc: '莞香小喵 - 借阅查询',
+      path: `/pages/index/index?r=/pages/core/jy/jy`
+    };
+  },
   loadData: function() {
     var _this = this;
     wx.showNavigationBarLoading();

@@ -64,7 +64,14 @@ Page({
     });
     this.search();
   },
-
+  //分享
+  onShareAppMessage: function () {
+    return {
+      title: '广东科技学院图书馆找书',
+      desc: '莞香小喵 - 我要找书',
+      path: `/pages/index/index?r=/pages/core/zs/zs`
+    };
+  },
   // 上滑加载更多
   onReachBottom: function(){
     if(this.data.main.message != '已全部加载' && this.data.main.message != '正在加载中'){

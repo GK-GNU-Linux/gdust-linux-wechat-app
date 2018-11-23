@@ -77,6 +77,14 @@ Page({
       _this.loginHandler.call(_this, options);
     });
   },
+  //分享
+  onShareAppMessage: function () {
+    return {
+      title: '广东科技学院空教室',
+      desc: '莞香小喵 - 空教室查询',
+      path: `/pages/index/index?r=/pages/core/kjs/kjs`
+    };
+  },
   loginHandler: function(options) {
     // 比较获取时间，比较出第几节
     var _this = this;
