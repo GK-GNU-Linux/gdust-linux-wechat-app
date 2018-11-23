@@ -100,15 +100,16 @@ Page({
     dates: [], //本周日期
     teacher: false, //是否为教师课表
     share_id: null,
-    changeLock: false
+    changeLock: false,
+    real_name: null
   },
   //分享
   onShareAppMessage: function() {
     var id = this.data.share_id;
     return {
-      title: name + '的课表',
+      title: this.data.real_name + '的课表',
       desc: '莞香小喵 - 课表查询',
-      path: '/pages/core/kb/kb?id=' + id
+      path: `/pages/index/index?r=/pages/core/kb/kb|id:${id}`
     };
   },
   onLoad: function(options) {
@@ -342,6 +343,7 @@ Page({
     }
     //课表渲染
     function kbRender(_data) {
+      _this.data.real_name = _data.real_name
       var colors = ['red', 'green', 'purple', 'yellow'];
       var today = parseInt(_data.now_week); //星期几，0周日,1周一
       today = today === 0 ? 6 : today - 1; //0周一,1周二...6周日
@@ -385,6 +387,7 @@ Page({
       if (res.data && res.data.status === 200) {
         var data = res.data.data;
         if (data) {
+          _this.data.share_id = data.share_id
           if (!share_id) {
             //保存课表缓存
             app.saveCache('kb_all', data);
