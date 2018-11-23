@@ -6,6 +6,7 @@ App({
   shareTicket: null, //分享获取相同信息所需ticket
   session_id: null,
   is_login: false,
+  redirect: false,
   onLaunch: function(options) {
     console.log(options)
     var _this = this;
@@ -44,9 +45,6 @@ App({
     } catch (e) {
       console.warn('获取缓存失败');
     }
-    if (options.query.r) {
-      wx.navigateTo({ url: options.query.r })
-    }
   },
   //保存缓存
   saveCache: function(key, value) {
@@ -72,7 +70,8 @@ App({
     });
   },
   //后台切换至前台时
-  onShow: function() {},
+  onShow: function() {
+  },
   checkCache: function() {
     var _this = this;
     return new Promise(function(resolve, reject) {

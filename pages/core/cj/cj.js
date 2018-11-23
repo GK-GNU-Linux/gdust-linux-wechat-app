@@ -19,16 +19,12 @@ Page({
   },
   //分享
   onShareAppMessage: function() {
-    var id = this.data.share_id;
+    var id = this.data.share_id
     return {
-      title: name + '的成绩单',
+      title: this.data.real_name + '的成绩单',
       desc: '快来莞香小喵查询你的期末成绩单',
-      path: '/pages/core/cj/cj?id=' + share_id,
+      path: `/pages/index/index?r=/pages/core/cj/cj|id:${id}`,
       success: function(res) {
-        if (res.shareTickets) {
-          app.sendGroupMsg(res.shareTickets);
-          //console.log(res);
-        }
         // 分享成功
       },
       fail: function(res) {

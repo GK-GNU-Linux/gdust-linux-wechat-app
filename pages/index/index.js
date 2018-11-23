@@ -107,6 +107,7 @@ Page({
         data: {}
       }
     },
+    redirect: false,
     user: {},
     disabledItemTap: false //点击了不可用的页面
   },
@@ -132,8 +133,12 @@ Page({
   },
   onShow: function () {
     var _this = this;
+    if (_this.data.redirect) {
+      console.log("关闭重定向")
+      _this.data.redirect = false;
+    }
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var _this = this;
     mta.Page.init()
     app.loginLoad().then(function () {
@@ -142,6 +147,17 @@ Page({
         _this.getCardData();
       })
     });
+    if (options.r) {
+      var params = ""
+      var url_list = options.r.split('|')
+      if (url_list.length > 1) {
+        params = url_list[1].replace('\\', '&').replace(/\:/g, '=')
+      }
+      var url = url_list[0] + '?' + params
+      console.log("首次重定向")
+      wx.navigateTo({ url: url })
+      this.data.redirect = url
+    }
   },
   getSchoolInfo: function () {
     var _this = this;
