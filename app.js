@@ -214,6 +214,7 @@ App({
                   _this.saveCache('version', _this.version);
                   status = true;
                 }
+                console.log(data.login_require)
                 _this.aldstat.sendSession(data.session_id)
                 _this.saveCache('session_id', data.session_id);
                 _this.session_id = data.session_id;
@@ -255,6 +256,7 @@ App({
     return new Promise(function(resolve, reject) {
       //获取微信用户信息
       wx.getUserInfo({
+        withCredentials: true,
         success: function(res) {
           var info = res;
           // _this.user.wxinfo = info.userInfo;
