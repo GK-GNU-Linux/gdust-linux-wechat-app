@@ -2,7 +2,7 @@
 var mta = require('./utils/mta_analysis.js')
 const ald = require('./utils/ald-stat.js')
 App({
-  version: 'v2.0.2', //版本号
+  version: 'v2.0.3', //版本号
   scene: 1001, //场景值
   shareTicket: null, //分享获取相同信息所需ticket
   session_id: null,
@@ -130,7 +130,7 @@ App({
     // 全局网络请求封装
     var _this = this;
     return new Promise(function(resolve, reject) {
-      const session_id = wx.getStorageSync('session_id')
+      const session_id = _this.session_id
       let header = {}
       if (session_id) {
         header = {
@@ -219,9 +219,27 @@ App({
                 _this.saveCache('session_id', data.session_id);
                 _this.session_id = data.session_id;
                 if (data.login_require) {
-                  _this.getUserInfo().then(function() {
-                    resolve()
-                  });
+                  wx.getSetting({
+                    success(res) {
+                      if (!res.authSetting['scope.userInfo']) {
+                        wx.authorize({
+                          scope: 'scope.userInfo',
+                          success() {
+                            console.log("已取得用户授权")
+                            _this.getUserInfo().then(function () {
+                              resolve()
+                            });
+                          },
+                          fail() {
+                            wx.navigateTo({
+                              url: '/pages/authorize/index'
+                            });
+                          }
+                        })
+                      }
+                    }
+                  })
+
                 } else {
                   console.log("session登陆成功")
                   resolve();

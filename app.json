@@ -11,6 +11,7 @@
     "pages/core/zs/zs",
     "pages/core/kjs/kjs",
     "pages/core/zs/detail/detail",
+    "pages/love/index",
     "pages/news/news",
     "pages/news/xy/xy_detail",
     "pages/news/xb/xb_detail",
@@ -20,7 +21,8 @@
     "pages/more/login",
     "pages/more/append",
     "pages/more/issues",
-    "pages/more/about"
+    "pages/more/about",
+    "pages/setting/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#079df2",
@@ -32,7 +34,7 @@
   },
   "tabBar": {
     "color": "#7f848a",
-    "selectedColor": "#648de2",
+    "selectedColor": "#696969",
     "backgroundColor": "#f7f6fb",
     "list": [
       {

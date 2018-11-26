@@ -14,7 +14,9 @@ Page({
         'hasUserInfo': true
       })
       app.getUserInfo().then(function () {
-        wx.navigateBack()
+        wx.reLaunch({
+          url: '/pages/index/index',
+        })
       })
     } else {
       wx.showToast({

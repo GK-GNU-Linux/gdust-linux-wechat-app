@@ -41,14 +41,6 @@
       </view>
     </view>
     <view class="more-info">
-      <!--
-      <navigator url="#">
-        <view class="more-info-btn">
-          <image class="btn-icon" src="/images/more/setting.png"></image>
-          <text class="btn-text">个人设置</text>
-        </view>
-      </navigator>
-      -->
       <!-- <navigator url="append?type=mealcard">
         <view class="more-info-btn" wx:if="{{!user.is_bind_mealcard}}">
           <image class="btn-icon" src="/images/more/fanka.png"></image>
@@ -67,6 +59,12 @@
         <view class="more-info-btn" wx:else>
           <image class="btn-icon" src="/images/more/tushuzheng.png"></image>
           <text class="btn-text">改绑图书证</text>
+        </view>
+      </navigator>
+      <navigator url="/pages/setting/index">
+        <view class="more-info-btn">
+          <image class="btn-icon" src="/images/more/setting.png"></image>
+          <text class="btn-text">个人设置</text>
         </view>
       </navigator>
       <!-- <navigator url="/pages/more/issues">
