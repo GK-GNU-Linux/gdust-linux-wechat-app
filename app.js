@@ -15,7 +15,7 @@ App({
       _this.scene = options.scene;
     }
     mta.App.init({
-      "appID": "500620460",
+      "appID": require('config').mta_app_id,
       "lauchOpts": options, //渠道分析,需在onLaunch方法传入options,如onLaunch:function(options){...}
       "statPullDownFresh": true, // 使用分析-下拉刷新次数/人数，必须先开通自定义事件，并配置了合法的eventID
       "statShareApp": true, // 使用分析-分享次数/人数，必须先开通自定义事件，并配置了合法的eventID
