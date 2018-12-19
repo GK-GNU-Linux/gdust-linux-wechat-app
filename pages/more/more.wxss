@@ -29,6 +29,7 @@
   margin-left: -2.5em;
   top: -60rpx;
   display: block;
+  overflow: hidden;
 }
 .user-name {
   position: absolute;

@@ -4,7 +4,7 @@
   <view class="top-bgcolor"> </view>
   <block wx:if="{{user.auth_user}}">
     <view class="user-info-box">
-      <image class="user-image" src="{{user.wx_info.head_img_url}}"></image>
+      <open-data class="user-image" type="userAvatarUrl"></open-data>
       <view wx:if="{{user.auth_user.user_type == 0}}">
         <text class="user-name">{{user.student.real_name}}</text>
         <view class="user-infos">
@@ -85,8 +85,8 @@
     <view class="user-info-box">
       <navigator url="login">
         <view>
-          <image class="user-image" src="{{user.wx_info.head_img_url}}"></image>
-          <text class="user-name">{{user.wx_info.nickname}}</text>
+          <open-data class="user-image" type="userAvatarUrl"></open-data>
+          <open-data class="user-name" type="userNickName"></open-data>
           <view class="user-infos">
             <view class="info2">
               <view class="xibie">请先绑定教务系统 | 前往绑定
