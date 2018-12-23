@@ -237,6 +237,9 @@ Page({
   getCardData: function (load_cache) {
     console.log("获取首页卡片信息")
     var _this = this;
+    if (_this.data.offline) {
+      return;
+    }
     //清空数据
     _this.setData({
       'remind': '加载中',
@@ -245,9 +248,6 @@ Page({
       'card.jy.show': false,
       'card.sdf.show': false
     });
-    if (_this.data.offline) {
-      return;
-    }
     var loadsum = 0; //正在请求连接数
     //判断并读取缓存
     wx.showNavigationBarLoading();

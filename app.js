@@ -176,6 +176,9 @@ App({
                 } else if (res.data.status == 403) {
                   _this.session_login().then(function() {
                     resolve();
+                  }).catch(function (res) {
+                    console.log(ret);
+                    reject(res);
                   });
                 }
               }
@@ -236,6 +239,10 @@ App({
                             });
                           }
                         })
+                      } else {
+                        _this.getUserInfo().then(function () {
+                          resolve()
+                        });
                       }
                     }
                   })
