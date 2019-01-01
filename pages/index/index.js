@@ -37,7 +37,7 @@ Page({
     {
       id: 'ks',
       name: '考试安排',
-      disabled: true,
+      disabled: false,
       guest_view: false,
       student_disable: false,
       teacher_disabled: true,

@@ -5,7 +5,11 @@ Page({
   data: {
     remind: '加载中',
     list: [],
-    first: 1
+    first: 1,
+    teacher: false,
+    id: '',
+    name: '',
+    share_id: ''
   },
   togglePage: function (e) {
     var id = e.currentTarget.id, data = {};
@@ -22,63 +26,34 @@ Page({
   },
   //分享
   onShareAppMessage: function () {
-    var name = this.data.name || app.user.student.name,
-      id = this.data.id || app.user.student.id;
+    var id = this.data.share_id
     return {
-      title: name + '的考试安排',
+      title: this.data.name + '的考试安排',
       desc: '莞香小喵 - 考试安排',
-      path: '/pages/core/ks/ks?id=' + id + '&name=' + name
+      path: `/pages/index/index?r=/pages/core/ks/ks|id:${id}`
     };
   },
   //下拉更新
   onPullDownRefresh: function () {
     var _this = this;
     _this.loginHandler({
-      id: _this.data.id || app.user.student.id,
-      name: _this.data.name || app.user.student.name
+      id: _this.data.id,
     });
   },
   onLoad: function (options) {
     var _this = this;
-    app.loginLoad(function () {
+    app.loginLoad().then(function () {
       _this.loginHandler.call(_this, options);
-    }, options.id);
+    });
   },
   //让分享时自动登录
   loginHandler: function (options) {
     var _this = this;
-    var id, name;
-    if (options.id && options.name) {
-      id = options.id;
-      name = options.name;
-      _this.setData({
-        teacher: false
-      });
-    } else {
-      id = app.user.student.id,
-        name = app.user.student.name;
-      _this.setData({
-        teacher: app.user.is_teacher
-      });
-    }
-    if (!id || !name) {
-      _this.setData({
-        remind: '未绑定'
-      });
-      return false;
-    }
-    _this.setData({
-      id: id,
-      name: name
-    });
     var data = {
-      session_id: app.user.id,
-      student_id: options.id ? id : ''
+      share_id: options.id
     };
-    if (app.user.is_teacher && !options.name) { data.type = 'teacher'; }
-
     //判断并读取缓存
-    if (app.cache.ks && !options.name) {
+    if (app.cache.ks && !options.id) {
       ksRender(app.cache.ks);
     }
     function ksRender(list) {
@@ -114,41 +89,40 @@ Page({
       });
     }
     wx.showNavigationBarLoading();
-    wx.request({
-      url: app.server + "/api/get_exam_info",
-      method: 'POST',
-      data: data,
-      success: function (res) {
-        if (res.data && res.data.status === 200) {
-          var list = res.data.data;
-          if (list) {
-            if (!options.name) {
-              //保存考试缓存
-              app.saveCache('ks', list);
-            }
-            ksRender(list);
-          } else { _this.setData({ remind: '暂无数据' }); }
+    app.wx_request("/exam/api_exam_schedule", "POST", data).then(function (res) {
+      if (res.data && res.data.status === 200) {
+        var data = res.data.data;
+        if (data) {
+          if (!options.id) {
+            //保存考试缓存
+            app.saveCache('ks', data.exam);
+          }
+          ksRender(data.exam);
+          _this.setData({
+            id: data.account,
+            name: data.real_name,
+            share_id: data.share_id
+          });
+        } else { _this.setData({ remind: '暂无数据' }); }
 
-        } else {
-          app.removeCache('ks');
-          _this.setData({
-            remind: res.data.message || '未知错误'
-          });
-        }
-      },
-      fail: function (res) {
-        if (_this.data.remind == '加载中') {
-          _this.setData({
-            remind: '网络错误'
-          });
-        }
-        console.warn('网络错误');
-      },
-      complete: function () {
-        wx.hideNavigationBarLoading();
-        wx.stopPullDownRefresh();
+      } else {
+        app.removeCache('ks');
+        _this.setData({
+          remind: res.data.msg || '未知错误'
+        });
       }
-    });
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+    }).catch(function (res) {
+      if (_this.data.remind == '加载中') {
+        _this.setData({
+          remind: '网络错误'
+        });
+      }
+      console.warn('网络错误');
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+    })
   },
   // 展示考试详情
   slideDetail: function (e) {
