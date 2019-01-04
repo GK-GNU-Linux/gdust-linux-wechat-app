@@ -73,7 +73,7 @@ Page({
     }).then(function(res) {
       if (res.data && res.data.status === 200) {
         var _data = res.data.data;
-        if (_data) {
+        if (_data && _data.length > 0) {
           //保存成绩缓存
           app.saveCache('cj', _data);
           _this.cjRender(_data);
