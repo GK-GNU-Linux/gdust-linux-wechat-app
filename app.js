@@ -144,7 +144,23 @@ App({
         method: method || 'GET',
         header: header,
         success: function(res) {
-          resolve(res);
+          if (res.data.status == 10000) {
+            console.log('重新登录')
+            _this.session_login().then(function () {
+              // 成功回调
+              _this.wx_request(enpoint, method, data).then(function (res) {
+                resolve(res);
+              }).catch(function (res) {
+                reject(res);
+              });
+              return;
+            }).catch(function (res) {
+              console.log(res);
+              reject(res);
+            });
+          } else {
+            resolve(res);
+          }
         },
         fail: function(res) {
           _this.showLoadToast("网络出错")
@@ -177,7 +193,7 @@ App({
                   _this.session_login().then(function() {
                     resolve();
                   }).catch(function (res) {
-                    console.log(ret);
+                    console.log(res);
                     reject(res);
                   });
                 }
