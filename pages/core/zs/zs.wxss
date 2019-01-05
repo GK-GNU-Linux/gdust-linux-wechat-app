@@ -519,3 +519,28 @@ button::after {
 .help-a text {
   word-break: break-all;
 }
+
+/* main -> library-tip
+ ============================================================================ */
+
+ .library-tip {
+   position: fixed;
+   bottom: 100rpx;
+   background: linear-gradient(to top right,#aa97f1, #aa97f1);
+   border-radius: 15rpx;
+   box-shadow: 5rpx 5rpx 15rpx #ccc;
+   padding: 20rpx;
+   color: #fff;
+}
+
+.library-tip .title {
+  font-size: 130%;
+  line-height:180%;
+  text-align: center;
+}
+.library-tip .body {
+  text-indent:1em;
+  line-height:180%;
+  display:flex;
+  flex-direction:column;
+}

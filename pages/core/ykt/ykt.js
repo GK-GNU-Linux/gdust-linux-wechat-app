@@ -31,12 +31,12 @@ Page({
   },
   loadData: function () {
     var _this = this;
-    if (!app.user.is_bind_mealcard) {
-      wx.redirectTo({
-        url: '/pages/more/append?type=mealcard'
-      })
-      return false;
-    }
+    // if (!app.user.is_bind_mealcard) {
+    //   wx.redirectTo({
+    //     url: '/pages/more/append?type=mealcard'
+    //   })
+    //   return false;
+    // }
     //判断并读取缓存
     if (app.cache.ykt) { _this.yktRender(app.cache.ykt); }
     _this.getData();
