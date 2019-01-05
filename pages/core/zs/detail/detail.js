@@ -5,26 +5,24 @@ Page({
   data: {
     remind: '加载中',
     xfData: [], // 书籍数据
-    listAnimation: {} // 列表动画
+    listAnimation: {}, // 列表动画
+    book_url: ''
   },
   //分享
   onShareAppMessage: function () {
     return {
       title: this.data.book_name + ' - 书籍详情 - 莞香小喵',
       desc: '广东科技学院唯一的小程序',
-      path: '/pages/index/index?r=/pages/core/zs/detail/detail|url:' + this.data.book_url + '\\name=' + this.data.book_name
+      path: '/pages/index/index?r=/pages/core/zs/detail/detail|url:' + this.data.book_url
     };
   },
   // 页面加载
   onLoad: function (options) {
     var _this = this;
-    _this.setData({
-      book_name: options.name,
-      book_url: options.url
-    });
     //判断并读取缓存
-    //if (app.cache.xf) { xfRender(app.cache.xf); }
-    function xfRender(info) {
+    _this.data.book_url = options.url;
+    //if (app.cache.zs) { xfRender(app.cache.zs); }
+    function zsRender(info) {
       // 为每一本书设置是否显示当前数据详情的标志open, false表示不显示
       var list = info.rows;
       for (var i = 0, len = list.length; i < len; ++i) {
@@ -33,6 +31,7 @@ Page({
       list[0].open = true;
       _this.setData({
         remind: '',
+        book_name: info.book_name,
         xfData: list,
         catalog: info.catalog
       });
@@ -45,15 +44,14 @@ Page({
         url: options.url
       },
       success: function (res) {
-
         if (res.data && res.data.code === 200) {
           var info = res.data.data;
           if (info) {
-            xfRender(info);
+            zsRender(info);
           } else { _this.setData({ remind: '暂无数据' }); }
 
         } else {
-          app.removeCache('xf');
+          app.removeCache('zs');
           _this.setData({
             remind: res.data.message || '未知错误'
           });
