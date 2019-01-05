@@ -26,7 +26,7 @@
         </button>
       </form>
     </view>
-    <view class="library-tip">
+    <view class="library-tip"  wx:if="{{!main.total}}">
       <view class="title">图书馆开放时间</view>
       <view class="body">
         <text>周一至周四　10:00-12:00 14:40-21:00</text>

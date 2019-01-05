@@ -524,8 +524,8 @@ button::after {
  ============================================================================ */
 
  .library-tip {
-   position: fixed;
-   bottom: 100rpx;
+   position: relative;
+   top: 250rpx;
    background: linear-gradient(to top right,#aa97f1, #aa97f1);
    border-radius: 15rpx;
    box-shadow: 5rpx 5rpx 15rpx #ccc;
