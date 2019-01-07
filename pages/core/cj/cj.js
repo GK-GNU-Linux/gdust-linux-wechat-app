@@ -57,10 +57,10 @@ Page({
       account: data.account,
       real_name: data.real_name,
       share_id: data.share_id,
-      rank: data.rank,
+      rank: data.rank || null,
       cjInfo: data.score,
-      xqName: data.year + '学年第' + data.term + '学期',
-      update_time: data.update_time || '暂无',
+      xqName: data.year + '学年 第' + data.term + '学期',
+      update_time: data.update_time || null,
       remind: ''
     });
   },
@@ -73,7 +73,7 @@ Page({
     }).then(function(res) {
       if (res.data && res.data.status === 200) {
         var _data = res.data.data;
-        if (_data && _data.length > 0) {
+        if (_data.score && Object.keys(_data.score).length != 0) {
           //保存成绩缓存
           app.saveCache('cj', _data);
           _this.cjRender(_data);
