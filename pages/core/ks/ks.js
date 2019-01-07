@@ -50,7 +50,7 @@ Page({
   loginHandler: function (options) {
     var _this = this;
     var data = {
-      share_id: options.id
+      share_id: options.id || ''
     };
     //判断并读取缓存
     if (app.cache.ks && !options.id) {
@@ -89,7 +89,7 @@ Page({
       });
     }
     wx.showNavigationBarLoading();
-    app.wx_request("/exam/api_exam_schedule", "POST", data).then(function (res) {
+    app.wx_request("/exam/api_exam_schedule", "GET", data).then(function (res) {
       if (res.data && res.data.status === 200) {
         var data = res.data.data;
         if (data) {
