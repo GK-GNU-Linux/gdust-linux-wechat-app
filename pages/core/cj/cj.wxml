@@ -26,7 +26,7 @@
         </view>
         <view class="cj-grade-info">
           <view class="cj-grade-jd">
-            <text class="cj-grade-jd-num">{{rank.avgGpa=='' ? rank.avgGpa: '暂无'}}</text>
+            <text class="cj-grade-jd-num">{{rank.avgGpa==null? '暂无':rank.avgGpa}}</text>
             <text>学期绩点</text>
           </view>
           <view class="cj-grade-bj">
