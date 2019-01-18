@@ -39,6 +39,10 @@ Page({
   },
   onLoad: function(options) {
     var _this = this;
+    //判断并读取缓存
+    if (app.cache.cj && !options.id) {
+      _this.cjRender(app.cache.cj);
+    }
     app.loginLoad().then(function() {
       _this.loginHandler.call(_this, options);
     });
@@ -46,10 +50,7 @@ Page({
   loginHandler: function(options) {
     var _this = this;
     var share_id = options.id || '';
-    //判断并读取缓存
-    if (app.cache.cj && !options.id) {
-      _this.cjRender(app.cache.cj);
-    }
+
     _this.getData(share_id);
   },
   cjRender: function(data) {
