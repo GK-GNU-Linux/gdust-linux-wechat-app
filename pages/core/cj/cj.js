@@ -73,6 +73,12 @@ Page({
     }).then(function(res) {
       if (res.data && res.data.status === 200) {
         var _data = res.data.data;
+        if (!_data) {
+          _this.setData({
+            remind: res.data.msg || '未知错误'
+          });
+          return;
+        }
         if (_data.score && Object.keys(_data.score).length != 0) {
           //保存成绩缓存
           app.saveCache('cj', _data);
