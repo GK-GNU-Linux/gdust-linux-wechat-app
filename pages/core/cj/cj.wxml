@@ -30,6 +30,10 @@
             <text>学期绩点</text>
           </view>
           <view class="cj-grade-bj">
+            <text class="cj-grade-bj-num">{{rank.class_rank ? rank.class_rank: '暂无'}}</text>
+            <text>班级排名</text>
+          </view>
+          <view class="cj-grade-bj">
             <text class="cj-grade-bj-num">{{rank.credits ? rank.credits: '暂无'}}</text>
             <text>学期总学分</text>
           </view>
