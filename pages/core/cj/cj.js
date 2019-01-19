@@ -75,6 +75,7 @@ Page({
       if (res.data && res.data.status === 200) {
         var _data = res.data.data;
         if (!_data) {
+          app.removeCache('cj');
           _this.setData({
             remind: res.data.msg || '未知错误'
           });
