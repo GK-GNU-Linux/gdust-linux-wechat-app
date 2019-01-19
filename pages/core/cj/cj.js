@@ -79,6 +79,8 @@ Page({
           _this.setData({
             remind: res.data.msg || '未知错误'
           });
+          wx.hideNavigationBarLoading()
+          wx.stopPullDownRefresh();
           return;
         }
         if (_data.score && Object.keys(_data.score).length != 0) {
