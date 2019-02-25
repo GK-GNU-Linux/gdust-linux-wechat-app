@@ -12,11 +12,11 @@
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), color-stop(0.93, rgba(255,255,255,.93)), to(rgba(255,255,255,0)));
 }
 .filter-item{
-  width: 140rpx;
+  width: 150rpx;
   height: 140rpx;
-  margin: 20rpx;
+  margin: 39rpx;
   margin-left: 0;
-  border-radius: 5rpx;
+  border-radius: 15rpx;
   box-shadow: 1px 2px 3px #e5e5e5;
   opacity: .66;
 }
@@ -76,9 +76,6 @@
 }
 .list-item.jw{
   background-color: #f6bd6c;
-}
-.list-item.xm{
-  background-color: #c895ed;
 }
 .list-item.new{
   background-color: #7acfa6;

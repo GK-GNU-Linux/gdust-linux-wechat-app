@@ -41,13 +41,7 @@ module.exports.ipage = {
 
   onLoad: function (options) {
     var _this = this;
-    app.loginLoad(function () {
-      _this.loginHandler.call(_this, options);
-    });
-  },
-  loginHandler: function (options) {
-    var _this = this;
-    if (!options.type || !options.id) {
+    if (!options.url) {
       _this.setData({
         remind: '404'
       });
@@ -55,17 +49,17 @@ module.exports.ipage = {
     }
     _this.setData({
       'type': options.type,
-      id: options.id
+      'url': options.url
     });
-    options.session_id = app.user.id;
     wx.request({
-      url: app.server + '/api/msg/get_news_detail',
+      url: 'https://news.gxgk.cc/news/detail',
       data: options,
       success: function (res) {
-        if (res.data.data && res.statusCode == 200) {
+        if (res.data && res.data.status === 200) {
           var info = res.data.data;
           if (info.html) {
             var article = app.util.base64.decode(info.html)
+            console.log(article)
             WxParse.wxParse('article', 'html', article, _this, 5);
             info.body = '';
           }
