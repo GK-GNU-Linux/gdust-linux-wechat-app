@@ -52,7 +52,7 @@ module.exports.ipage = {
       'url': options.url
     });
     wx.request({
-      url: 'http://127.0.0.1:5000/news/detail',
+      url: 'https://news.gxgk.cc/news/detail',
       data: options,
       success: function (res) {
         if (res.data && res.data.status === 200) {
