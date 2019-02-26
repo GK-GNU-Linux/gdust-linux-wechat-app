@@ -22,8 +22,17 @@ Page({
     disabledRemind: false
   },
   onLoad: function (option) {
+    var user_type = 'guest'
+    if (app.user) {
+      if (app.user.auth_user.user_type === 0) {
+        user_type = 'student'
+      } else {
+        user_type = 'teacher'
+      }
+    }
+    console.log(user_type)
     this.setData({
-      user_type: 'guest',
+      'user_type': user_type,
       'active.id': 0,
       'active.type': 'new',
       'loading': true,
