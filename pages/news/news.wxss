@@ -12,11 +12,11 @@
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), color-stop(0.93, rgba(255,255,255,.93)), to(rgba(255,255,255,0)));
 }
 .filter-item{
-  width: 150rpx;
+  width: 140rpx;
   height: 140rpx;
-  margin: 39rpx;
+  margin: 20rpx;
   margin-left: 0;
-  border-radius: 15rpx;
+  border-radius: 5rpx;
   box-shadow: 1px 2px 3px #e5e5e5;
   opacity: .66;
 }
