@@ -8,8 +8,7 @@ Page({
       { id: 0, 'type': 'all', name: '头条', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 1, 'type': 'xy', name: '学院新闻', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 2, 'type': 'xb', name: '系部动态', storage: [], enabled: { guest: true, student: true, teacher: true } },
-      { id: 3, 'type': 'jw', name: '教务公告', storage: [], enabled: { guest: true, student: true, teacher: true } },
-      { id: 4, 'type': 'xm', name: '小喵推送', storage: [], enabled: { guest: true, student: true, teacher: true } },
+      { id: 3, 'type': 'jw', name: '教务公告', storage: [], enabled: { guest: true, student: true, teacher: true } }
     ],
     'active': {
       id: 0,
@@ -22,19 +21,20 @@ Page({
     user_type: 'guest',
     disabledRemind: false
   },
-  onLoad: function () {
-    if (app.user.is_bind) {
-      this.setData({
-        user_type: !app.user.teacher ? 'student' : 'teacher'
-      });
-    } else {
-      this.setData({
-        user_type: 'guest',
-        'active.id': 0,
-        'active.type': 'new'
-      });
+  onLoad: function (option) {
+    var user_type = 'guest'
+    if (app.user) {
+      if (app.user.auth_user.user_type === 0) {
+        user_type = 'student'
+      } else {
+        user_type = 'teacher'
+      }
     }
+    console.log(user_type)
     this.setData({
+      'user_type': user_type,
+      'active.id': 0,
+      'active.type': 'new',
       'loading': true,
       'active.data': [],
       'active.showMore': true,
@@ -65,15 +65,6 @@ Page({
   //获取新闻列表
   getNewsList: function (typeId) {
     var _this = this;
-    if (1) {
-      _this.setData({
-        'active.showMore': false,
-        'active.remind': "暂未重构",
-        loading: false
-      });
-      wx.stopPullDownRefresh();
-      return;
-    }
     typeId = typeId || _this.data.active.id;
     if (_this.data.page >= 5) {
       _this.setData({
@@ -92,11 +83,11 @@ Page({
     });
     wx.showNavigationBarLoading();
     wx.request({
-      url: app.server + '/api/msg/get_news_list',
+      url: "https://news.gxgk.cc/news/list",
       data: {
-        session_id: app.user.id,
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,
+        faculty: app.user.student.faculty
       },
       success: function (res) {
         if(res.data && res.data.status === 200){
