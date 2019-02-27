@@ -1,1 +1,2 @@
-	/* pages/news/xm/xm_detail.wxss */ 
+/* pages/news/xb/xb_detail.wxss */
+@import "../detail/detail.wxss";
