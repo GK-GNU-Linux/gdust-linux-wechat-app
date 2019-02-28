@@ -48,7 +48,7 @@ Page({
     return {
       title: '校内资讯 - 莞香小喵',
       desc: '快来莞香小喵看看校内资讯',
-      path: `/pages/index/index?r=/pages/news/news`,
+      path: `pages/news/news`,
       success: function (res) {
         // 分享成功
       },
