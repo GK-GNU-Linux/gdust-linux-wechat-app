@@ -30,7 +30,6 @@ Page({
         user_type = 'teacher'
       }
     }
-    console.log(user_type)
     this.setData({
       'user_type': user_type,
       'active.id': 0,
@@ -42,6 +41,21 @@ Page({
       'page': 0
     });
     this.getNewsList();
+  },
+  //分享
+  onShareAppMessage: function () {
+    var id = this.data.share_id
+    return {
+      title: '校内资讯 - 莞香小喵',
+      desc: '快来莞香小喵看看校内资讯',
+      path: `/pages/index/index?r=/pages/news/news`,
+      success: function (res) {
+        // 分享成功
+      },
+      fail: function (res) {
+        // 分享失败
+      }
+    };
   },
   //下拉更新
   onPullDownRefresh: function () {
