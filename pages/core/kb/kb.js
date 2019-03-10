@@ -351,6 +351,9 @@ Page({
       var toweek = week;
       if (today === 6) {
         toweek = toweek - 1;
+        if (week !=1){
+          week = week - 1;
+        }
       }
       var lessons = _data.lessons.schedule;
       //各周日期计算
