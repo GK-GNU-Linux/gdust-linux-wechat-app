@@ -11,6 +11,7 @@ module.exports.ipage = {
     reading: "",   // 阅读量
     content: "",  // 新闻内容
     files_len: 0,  // 附件数量
+    url:'',        //关联公众号文章url
     files_list: [],
     file_loading: false, //下载状态
     source: '',   // 附件来源
@@ -69,6 +70,7 @@ module.exports.ipage = {
             reading: info.reading || "",    // 阅读量
             title: info.title,            //新闻标题
             originate: info.originate,         //新闻来源
+            url: info.url,                //关联公众号文章url
             content: _this.convertHtmlToText(info.body),  // 新闻内容
             source: _this.data.sources[options.type],
             remind: ''

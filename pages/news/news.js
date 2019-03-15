@@ -8,7 +8,8 @@ Page({
       { id: 0, 'type': 'all', name: '头条', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 1, 'type': 'xy', name: '学院新闻', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 2, 'type': 'xb', name: '系部动态', storage: [], enabled: { guest: true, student: true, teacher: true } },
-      { id: 3, 'type': 'jw', name: '教务公告', storage: [], enabled: { guest: true, student: true, teacher: true } }
+      { id: 3, 'type': 'jw', name: '教务公告', storage: [], enabled: { guest: true, student: true, teacher: true } },
+      { id: 4, 'type': 'xm', name: '小喵推送', storage: [], enabled: { guest: true, student: true, teacher: true } }
     ],
     'active': {
       id: 0,
@@ -22,17 +23,8 @@ Page({
     disabledRemind: false
   },
   onLoad: function (option) {
-    var user_type = 'guest'
-    if (app.user) {
-      if (app.user.auth_user.user_type === 0) {
-        user_type = 'student'
-      } else {
-        user_type = 'teacher'
-      }
-    }
-    console.log(user_type)
     this.setData({
-      'user_type': user_type,
+      user_type: 'guest',
       'active.id': 0,
       'active.type': 'new',
       'loading': true,
