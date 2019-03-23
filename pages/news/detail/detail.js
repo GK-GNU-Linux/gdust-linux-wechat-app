@@ -5,6 +5,7 @@ module.exports.ipage = {
   data: {
     remind: "加载中",
     id: "",
+    url: "",
     title: "",    // 新闻标题
     date: "",     // 发布日期
     author: "",   // 发布作者
@@ -29,7 +30,7 @@ module.exports.ipage = {
     return {
       title: _this.data.title,
       desc: '莞香小喵 - 资讯详情',
-      path: 'pages/news/' + _this.data.type + '/' + _this.data.type + '_detail?type=' + _this.data.type + '&id=' + _this.data.id
+      path: 'pages/news/' + _this.data.type + '/' + _this.data.type + '_detail?type=' + _this.data.type + '&url=' + _this.data.url
     }
   },
 
