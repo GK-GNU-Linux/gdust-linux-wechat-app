@@ -1,2 +1,1 @@
-<!--pages/news/xb/xb_detail.wxml-->
-<include src="../detail/detail.wxml" />
+<web-view src="{{url}}"></web-view>
