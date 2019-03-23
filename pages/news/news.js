@@ -23,8 +23,6 @@ Page({
     disabledRemind: false
   },
   onLoad: function (option) {
-<<<<<<< HEAD
-=======
     var user_type = 'guest'
     if (app.user) {
       if (app.user.auth_user.user_type === 0) {
@@ -33,7 +31,6 @@ Page({
         user_type = 'teacher'
       }
     }
->>>>>>> master
     this.setData({
       user_type: 'guest',
       'active.id': 0,
