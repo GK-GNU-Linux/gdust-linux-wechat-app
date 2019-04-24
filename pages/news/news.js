@@ -4,7 +4,7 @@ var app = getApp();
 Page({
   data: { 
     page: 0,
-    gzh_list: ['广科严选','广科青年'],
+    gzh_list: ['广科严选'],
     list: [
       { id: 0, 'type': 'all', name: '头条', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 1, 'type': 'xy', name: '学院新闻', storage: [], enabled: { guest: true, student: true, teacher: true } },
@@ -37,6 +37,20 @@ Page({
       'page': 0
     });
     this.getNewsList();
+  },
+  onShareAppMessage: function () {
+    var id = this.data.share_id
+    return {
+      title: '校内资讯 - 莞香小喵',
+      desc: '快来莞香小喵看看校内资讯',
+      path: `pages/news/news`,
+      success: function (res) {
+        // 分享成功	
+      },
+      fail: function (res) {
+        // 分享失败	
+      }
+    };
   },
   //下拉更新
   onPullDownRefresh: function () {
