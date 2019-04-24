@@ -158,30 +158,17 @@ Page({
   },
   //获取焦点
   changeFilter: function (e) {
-    if(e.target.dataset.id!='4'){
-      this.setData({
-        'active': {
-          'id': e.target.dataset.id,
-          'type': e.target.id,
-          data: [],
-          showMore: true,
-          remind: '上滑加载更多'
+    this.setData({
+      'active': {
+        'id': e.target.dataset.id,
+        'type': e.target.id,
+        'gzh_name':e.target.dataset.gzh_name,
+        data: [],
+        showMore: true,
+        remind: '上滑加载更多'
         },
-        'page': 0
+      'page': 0
       });
-    }else{
-      this.setData({
-        'active': {
-          'id': e.target.dataset.id,
-          'type': e.target.id,
-          'gzh_name':e.target.dataset.gzh_name,
-          data: [],
-          showMore: true,
-          remind: '上滑加载更多'
-        },
-        'page': 0
-      });
-    }
     this.getNewsList(e.target.dataset.id);
   },
   //无权限查询

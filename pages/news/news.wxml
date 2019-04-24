@@ -5,16 +5,17 @@
   <!--新闻分类-->
   <scroll-view class="filter" scroll-x="true">
     <block wx:for="{{list}}" wx:key="id">
-      <image wx:if="{{item.enabled[user_type]}}" class="filter-item {{active.type === item.type ? 'active' : ''}}" data-id="{{item.id}}" id="{{item.type}}" data-gzh_name="广科严选" bindtap="changeFilter" src="/images/news/{{item.type}}@colour.png"></image>
+      <image wx:if="{{item.enabled[user_type]}}" class="filter-item {{active.type === item.type ? 'active' : ''}}" data-id="{{item.id}}" id="{{item.type}}" data-gzh_name="{{active.gzh_name}}" bindtap="changeFilter" src="/images/news/{{item.type}}@colour.png"></image>
       <image wx:else class="filter-item disabled" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilterDisabled" src="/images/news/{{item.type}}@gray.png"></image>
-    </block>  
-  <!-- 
-    <scroll-view wx:if="{{active.type==' '}}" class="filter-gzh" scroll-x="ture">
+    </block>
+<!-- 
+    <scroll-view wx:if="{{active.type=='xm'}}" class="filter-gzh" scroll-x="ture">
       <block wx:for="{{gzh_list}}">
         <button size="mini" type="defaule" class="filter-gzh-item" data-id="{{active.id}}" id="{{active.type}}" data-gzh_name='{{item}}' bindtap="changeFilter" hover-class='hover-item'>{{item}}</button>
       </block>
     </scroll-view>
-  -->
+    -->
+
   </scroll-view>
 
   <!--新闻列表-->
