@@ -2,8 +2,9 @@
 //获取应用实例
 var app = getApp();
 Page({
-  data: {
+  data: { 
     page: 0,
+    gzh_list: ['广科严选'],
     list: [
       { id: 0, 'type': 'all', name: '头条', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 1, 'type': 'xy', name: '学院新闻', storage: [], enabled: { guest: true, student: true, teacher: true } },
@@ -14,6 +15,7 @@ Page({
     'active': {
       id: 0,
       'type': 'all',
+      gzh_name: '广科严选',
       data: [],
       showMore: true,
       remind: '上滑加载更多'
@@ -23,18 +25,11 @@ Page({
     disabledRemind: false
   },
   onLoad: function (option) {
-    var user_type = 'guest'
-    if (app.user) {
-      if (app.user.auth_user.user_type === 0) {
-        user_type = 'student'
-      } else {
-        user_type = 'teacher'
-      }
-    }
     this.setData({
       user_type: 'guest',
       'active.id': 0,
       'active.type': 'new',
+      'active.gzh_name': '广科严选',
       'loading': true,
       'active.data': [],
       'active.showMore': true,
@@ -43,7 +38,6 @@ Page({
     });
     this.getNewsList();
   },
-  //分享
   onShareAppMessage: function () {
     var id = this.data.share_id
     return {
@@ -51,10 +45,10 @@ Page({
       desc: '快来莞香小喵看看校内资讯',
       path: `pages/news/news`,
       success: function (res) {
-        // 分享成功
+        // 分享成功	
       },
       fail: function (res) {
-        // 分享失败
+        // 分享失败	
       }
     };
   },
@@ -102,7 +96,8 @@ Page({
       data: {
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,
-        faculty: app.user.student.faculty
+        faculty: app.user.student.faculty,
+        gzh_name: _this.data.active.gzh_name
       },
       success: function (res) {
         if(res.data && res.data.status === 200){
@@ -163,16 +158,30 @@ Page({
   },
   //获取焦点
   changeFilter: function (e) {
-    this.setData({
-      'active': {
-        'id': e.target.dataset.id,
-        'type': e.target.id,
-        data: [],
-        showMore: true,
-        remind: '上滑加载更多'
-      },
-      'page': 0
-    });
+    if(e.target.dataset.id!='4'){
+      this.setData({
+        'active': {
+          'id': e.target.dataset.id,
+          'type': e.target.id,
+          data: [],
+          showMore: true,
+          remind: '上滑加载更多'
+        },
+        'page': 0
+      });
+    }else{
+      this.setData({
+        'active': {
+          'id': e.target.dataset.id,
+          'type': e.target.id,
+          'gzh_name':e.target.dataset.gzh_name,
+          data: [],
+          showMore: true,
+          remind: '上滑加载更多'
+        },
+        'page': 0
+      });
+    }
     this.getNewsList(e.target.dataset.id);
   },
   //无权限查询
