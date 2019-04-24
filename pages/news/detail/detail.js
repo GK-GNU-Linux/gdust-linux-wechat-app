@@ -22,7 +22,8 @@ module.exports.ipage = {
       'xb': '系部动态',
       'xm': '小喵推送',
       'new': '新闻中心'
-    }
+    },
+    mp_article: false
   },
   //分享
   onShareAppMessage: function () {
@@ -51,8 +52,12 @@ module.exports.ipage = {
     }
     _this.setData({
       'type': options.type,
-      'url': options.url
+      'url': decodeURIComponent(options.url),
+      'mp_article': options.mp_article
     });
+    if (options.mp_article === 'true') {
+      return true;
+    }
     wx.request({
       url: 'https://news.gxgk.cc/news/detail',
       data: options,

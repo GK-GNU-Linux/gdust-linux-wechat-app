@@ -1,6 +1,6 @@
 <!--detail.wxml (common)-->
 <import src="/wxParse/wxParse.wxml" />
-<web-view wx:if="{{date=='广科严选'}}" src="{{url}}"></web-view>
+<web-view wx:if="{{mp_article === 'true'}}" src="{{url}}"></web-view>
 <view wx:else class="container">
   <view wx:if="{{remind}}" class="remind-box">
     <image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
