@@ -92,7 +92,7 @@ Page({
     });
     wx.showNavigationBarLoading();
     wx.request({
-      url: "https://news.gxgk.cc/news/list",
+      url: "http://127.0.0.1:5000/news/list",
       data: {
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,
@@ -158,30 +158,17 @@ Page({
   },
   //获取焦点
   changeFilter: function (e) {
-    if(e.target.dataset.id!='4'){
-      this.setData({
-        'active': {
-          'id': e.target.dataset.id,
-          'type': e.target.id,
-          data: [],
-          showMore: true,
-          remind: '上滑加载更多'
+    this.setData({
+      'active': {
+        'id': e.target.dataset.id,
+        'type': e.target.id,
+        'gzh_name':e.target.dataset.gzh_name,
+        data: [],
+        showMore: true,
+        remind: '上滑加载更多'
         },
-        'page': 0
+      'page': 0
       });
-    }else{
-      this.setData({
-        'active': {
-          'id': e.target.dataset.id,
-          'type': e.target.id,
-          'gzh_name':e.target.dataset.gzh_name,
-          data: [],
-          showMore: true,
-          remind: '上滑加载更多'
-        },
-        'page': 0
-      });
-    }
     this.getNewsList(e.target.dataset.id);
   },
   //无权限查询
