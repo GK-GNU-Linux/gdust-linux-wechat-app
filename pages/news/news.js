@@ -92,7 +92,7 @@ Page({
     });
     wx.showNavigationBarLoading();
     wx.request({
-      url: "http://127.0.0.1:5000/news/list",
+      url: "https://news.gxgk.cc/news/list",
       data: {
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,
