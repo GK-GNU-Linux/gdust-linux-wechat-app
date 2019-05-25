@@ -5,7 +5,6 @@ module.exports.ipage = {
   data: {
     remind: "加载中",
     id: "",
-    url: "",
     title: "",    // 新闻标题
     date: "",     // 发布日期
     author: "",   // 发布作者
@@ -13,6 +12,7 @@ module.exports.ipage = {
     content: "",  // 新闻内容
     files_len: 0,  // 附件数量
     url:'',        //关联公众号文章url
+    articleid:"",
     files_list: [],
     file_loading: false, //下载状态
     source: '',   // 附件来源
@@ -30,7 +30,7 @@ module.exports.ipage = {
     return {
       title: _this.data.title,
       desc: '莞香小喵 - 资讯详情',
-      path: 'pages/news/' + _this.data.type + '/' + _this.data.type + '_detail?type=' + _this.data.type + '&url=' + _this.data.url
+      path: 'pages/news/' + _this.data.type + '/' + _this.data.type + '_detail?type=' + _this.data.type + '&id=' + _this.data.id
     }
   },
 
@@ -51,7 +51,8 @@ module.exports.ipage = {
     }
     _this.setData({
       'type': options.type,
-      'url': options.url
+      'url': options.url,
+      'articleid':options.articleid,
     });
     wx.request({
       url: 'https://news.gxgk.cc/news/detail',

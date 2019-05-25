@@ -4,7 +4,7 @@ var app = getApp();
 Page({
   data: { 
     page: 0,
-    gzh_list: ['广科严选'],
+    //gzh_list: ['广科严选'],
     list: [
       { id: 0, 'type': 'all', name: '头条', storage: [], enabled: { guest: true, student: true, teacher: true } },
       { id: 1, 'type': 'xy', name: '学院新闻', storage: [], enabled: { guest: true, student: true, teacher: true } },
@@ -15,7 +15,7 @@ Page({
     'active': {
       id: 0,
       'type': 'all',
-      gzh_name: '广科严选',
+      //gzh_name: '广科严选',
       data: [],
       showMore: true,
       remind: '上滑加载更多'
@@ -29,7 +29,7 @@ Page({
       user_type: 'guest',
       'active.id': 0,
       'active.type': 'new',
-      'active.gzh_name': '广科严选',
+      //'active.gzh_name': '广科严选',
       'loading': true,
       'active.data': [],
       'active.showMore': true,
@@ -97,7 +97,6 @@ Page({
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,
         faculty: app.user.student.faculty,
-        gzh_name: _this.data.active.gzh_name
       },
       success: function (res) {
         if(res.data && res.data.status === 200){
@@ -162,7 +161,7 @@ Page({
       'active': {
         'id': e.target.dataset.id,
         'type': e.target.id,
-        'gzh_name':e.target.dataset.gzh_name,
+        //'gzh_name':e.target.dataset.gzh_name,
         data: [],
         showMore: true,
         remind: '上滑加载更多'

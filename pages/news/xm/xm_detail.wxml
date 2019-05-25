@@ -1,1 +1,2 @@
-<web-view src="{{url}}"></web-view>
+<!--pages/news/xm/xm_detail.wxml-->
+<include src="../detail/detail.wxml" />
