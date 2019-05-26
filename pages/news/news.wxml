@@ -7,14 +7,14 @@
     <block wx:for="{{list}}" wx:key="id">
       <image wx:if="{{item.enabled[user_type]}}" class="filter-item {{active.type === item.type ? 'active' : ''}}" data-id="{{item.id}}" id="{{item.type}}" data-gzh_name="{{active.gzh_name}}" bindtap="changeFilter" src="/images/news/{{item.type}}@colour.png"></image>
       <image wx:else class="filter-item disabled" data-id="{{item.id}}" id="{{item.type}}" bindtap="changeFilterDisabled" src="/images/news/{{item.type}}@gray.png"></image>
-    </block>
-<!-- 
+    </block>  
+    <!-->
     <scroll-view wx:if="{{active.type=='xm'}}" class="filter-gzh" scroll-x="ture">
       <block wx:for="{{gzh_list}}">
         <button size="mini" type="defaule" class="filter-gzh-item" data-id="{{active.id}}" id="{{active.type}}" data-gzh_name='{{item}}' bindtap="changeFilter" hover-class='hover-item'>{{item}}</button>
       </block>
     </scroll-view>
-    -->
+    <-->
 
   </scroll-view>
 
@@ -24,11 +24,7 @@
       <image src="/images/index/loading.gif" wx-if="{{loading}}"></image>
     </view>
     <block wx:for="{{active.data}}" wx:key="item.articleid">
-<<<<<<< HEAD
-      <navigator url="/pages/news/{{item.type}}/{{item.type}}_detail?type={{item.type}}&url={{item.url}}&mp_article={{item.type=='xm'}}">
-=======
       <navigator url="/pages/news/{{item.type}}/{{item.type}}_detail?type={{item.type}}&url={{item.url}}&articleid={{item.articleid}}">
->>>>>>> b84b2dae134c6163fdbfec08094452a7c5210967
         <view class="list-item {{item.type}}">
           <view class="list-item-left">
             <text class="list-item-title">{{item.title}}</text>
