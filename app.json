@@ -43,7 +43,7 @@
         "iconPath": "images/index/index.png",
         "selectedIconPath": "images/index/index@active.png"
       },
-        {
+      {
         "pagePath": "pages/news/news",
         "text": "资讯",
         "iconPath": "images/index/news.png",
@@ -64,5 +64,6 @@
     "request": 20000,
     "uploadFile": 30000,
     "downloadFile": 30000
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,4 +1,6 @@
 //kb.js
+let interstitialAd = null
+let isAdShowed = false
 //获取应用实例
 var app = getApp();
 Page({
@@ -121,6 +123,14 @@ Page({
         'teacher': is_teacher == 1
       });
     });
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-ef0d2016394d4236'
+      })
+      interstitialAd.onLoad(() => { })
+      interstitialAd.onError((err) => { })
+      interstitialAd.onClose(() => { })
+    }
   },
   //让分享时自动登录
   loginHandler: function(options) {
@@ -272,6 +282,12 @@ Page({
   },
   //滑动切换课程详情
   bindMoveDetail: function(e) {
+    if (interstitialAd && isAdShowed == false) {
+      isAdShowed = true;
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     var _this = this;
     var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
       startPoint = _this.data.startPoint,
@@ -298,6 +314,12 @@ Page({
   },
   //点击左右按钮切换swiper
   swiperChangeBtn: function(e) {
+    if (interstitialAd && isAdShowed == false) {
+      isAdShowed = true;
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     var _this = this;
     if (_this.data.delayShow){
       _this.data.delayShow = false
