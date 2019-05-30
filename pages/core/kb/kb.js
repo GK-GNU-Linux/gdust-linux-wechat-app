@@ -265,6 +265,12 @@ Page({
   },
   currentChange: function(e) {
     // 更改底部周数时触发，修改当前选择的周数
+    if (interstitialAd && isAdShowed == false) {
+      isAdShowed = true;
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
     if (!this.data.changeLock) {
       this.data.changeLock = true
       var current = e.detail.current
@@ -282,12 +288,6 @@ Page({
   },
   //滑动切换课程详情
   bindMoveDetail: function(e) {
-    if (interstitialAd && isAdShowed == false) {
-      isAdShowed = true;
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
     var _this = this;
     var curPoint = [e.changedTouches[0].pageX, e.changedTouches[0].pageY],
       startPoint = _this.data.startPoint,
@@ -314,12 +314,6 @@ Page({
   },
   //点击左右按钮切换swiper
   swiperChangeBtn: function(e) {
-    if (interstitialAd && isAdShowed == false) {
-      isAdShowed = true;
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
     var _this = this;
     if (_this.data.delayShow){
       _this.data.delayShow = false
