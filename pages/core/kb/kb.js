@@ -269,6 +269,7 @@ Page({
       isAdShowed = true;
       interstitialAd.show().catch((err) => {
         console.error(err)
+        isAdShowed = false;
       })
     }
     if (!this.data.changeLock) {
