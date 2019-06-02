@@ -23,7 +23,6 @@
     "pages/more/issues",
     "pages/more/about",
     "pages/setting/index",
-    "pages/core/log",
     "pages/core/bbq/bbq"
   ],
   "window": {

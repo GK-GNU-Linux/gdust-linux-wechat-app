@@ -381,5 +381,5 @@
 }
 .main-swpier .wx-swiper-dots.wx-swiper-dots-horizontal{
   bottom: 0rpx;
-  margin-bottom: -38rpx;
+  margin-bottom: 0rpx;
 }
