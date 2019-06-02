@@ -1,4 +1,4 @@
-// pages/love/index.js
+// pages/core/bbq/bbq.js
 Page({
 
   /**

@@ -11,7 +11,7 @@
     "pages/core/zs/zs",
     "pages/core/kjs/kjs",
     "pages/core/zs/detail/detail",
-    "pages/love/index",
+    "pages/core/mht/mht",
     "pages/news/news",
     "pages/news/xy/xy_detail",
     "pages/news/xb/xb_detail",
@@ -22,7 +22,9 @@
     "pages/more/append",
     "pages/more/issues",
     "pages/more/about",
-    "pages/setting/index"
+    "pages/setting/index",
+    "pages/core/log",
+    "pages/core/bbq/bbq"
   ],
   "window": {
     "navigationBarBackgroundColor": "#079df2",
