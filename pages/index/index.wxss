@@ -35,7 +35,7 @@
   display: flex;
   flex-flow: row wrap;
   align-content: flex-start;
-  padding-bottom: 30rpx;
+  padding-bottom: 0rpx;
   position: relative;
 }
 
@@ -319,7 +319,7 @@
   background: #fff;
   border-bottom: 1rpx solid #e5e5e5;
   margin-bottom: 0rpx;
-  min-height: 350rpx;
+  min-height: 430rpx;
   overflow: hidden;
   padding-top: 5px;
 }
@@ -375,11 +375,15 @@
   border-top: 1rpx solid #e5e5e5;
 }
 .main-swpier{
-  height: 390rpx;
-  margin-bottom: 5rpx;
+  height: 440rpx;
+  margin-bottom: 0rpx;
   width: 100%;
 }
 .main-swpier .wx-swiper-dots.wx-swiper-dots-horizontal{
+  position: absolute;
   bottom: 0rpx;
-  margin-bottom: 0rpx;
+  margin-bottom: -3rpx;
+  /* left: 500rpx; */
+  /* z-index可设可不设*/
+  z-index: 999;
 }

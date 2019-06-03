@@ -63,13 +63,13 @@ Page({
           offline_disabled: false
         },
         {
-          id: 'xs',
-          name: '学生查询',
+          id: 'bbq',
+          name: '表白墙',
           disabled: false,
-          guest_view: false,
-          student_disable: true,
+          guest_view: true,
+          student_disable: false,
           teacher_disabled: false,
-          offline_disabled: true
+          offline_disabled: false
         },
         {
           id: 'zs',
@@ -96,14 +96,14 @@ Page({
           offline_disabled: false
         },
         {
-          id: 'bbq',
-          name: '表白墙',
+          id: 'xs',
+          name: '学生查询',
           disabled: false,
-          guest_view: true,
-          student_disable: false,
+          guest_view: false,
+          student_disable: true,
           teacher_disabled: false,
-          offline_disabled: false
-        },
+          offline_disabled: true
+        }
       ]
     ],
     card: {

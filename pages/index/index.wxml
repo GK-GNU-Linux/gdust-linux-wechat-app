@@ -7,7 +7,7 @@
   <view wx:else class="top-bgcolor"></view>
   <view class="main-box">
     <view class="content-box">
-      <swiper class="main-swpier">
+      <swiper class="main-swpier" indicator-dots="true" indicator-active-color="#73b4ef">
         <swiper-item class="main-core" wx:for="{{cores}}" wx:for-item="core" wx:key="id">
           <block wx:for="{{core}}" wx:key="id">
             <block wx:if="{{item.btn_type == nil}}">
@@ -29,7 +29,6 @@
           </block>
         </swiper-item>
       </swiper>
-
       <view class="fix_tip {{disabledItemTap?'active':''}}">
         <text wx:if="{{remind == '未绑定'}}">请先绑定帐号</text>
         <text wx:else>该服务不可用</text>
