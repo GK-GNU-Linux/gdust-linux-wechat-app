@@ -61,8 +61,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '喵话题 - 我们的话题',
-      desc: '喵话题 - 我们的话题',
+      title: '喵话题 - 知无不谈，就你话多',
       path: `/pages/index/index?r=/pages/core/mht/mht`,
       imageUrl: "https://qn.gxgk.cc/ui/topic_share.jpg"
     };

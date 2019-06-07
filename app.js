@@ -1,8 +1,10 @@
 //app.js
 var mta = require('./utils/mta_analysis.js')
 const ald = require('./utils/ald-stat.js')
+const sentry = require('./utils/sentry-mina.js')
+
 App({
-  version: 'v2.1.3', //版本号
+  version: 'v2.1.4', //版本号
   scene: 1001, //场景值
   shareTicket: null, //分享获取相同信息所需ticket
   session_id: null,
@@ -14,6 +16,10 @@ App({
     if (options.scene) {
       _this.scene = options.scene;
     }
+    sentry.init({
+      dsn: require('config').dsn_url,
+      release: _this.version
+    })
     mta.App.init({
       "appID": require('config').mta_app_id,
       "lauchOpts": options, //渠道分析,需在onLaunch方法传入options,如onLaunch:function(options){...}
@@ -113,12 +119,15 @@ App({
             resolve();
           })
         }).catch(function(res) {
+          console.log(res)
           _this.session_login().then(function () {
             _this.is_login = true
             console.log("重新登陆")
             _this.checkCache().then(function () {
               resolve();
             })
+          }).catch(function(res) {
+            console.log(res)
           });
         })
       } else {

@@ -1,5 +1,4 @@
 //kb.js
-let interstitialAd = null
 let isAdShowed = false
 //获取应用实例
 var app = getApp();
@@ -123,14 +122,6 @@ Page({
         'teacher': is_teacher == 1
       });
     });
-    if (wx.createInterstitialAd) {
-      interstitialAd = wx.createInterstitialAd({
-        adUnitId: 'adunit-ef0d2016394d4236'
-      })
-      interstitialAd.onLoad(() => { })
-      interstitialAd.onError((err) => { })
-      interstitialAd.onClose(() => { })
-    }
   },
   //让分享时自动登录
   loginHandler: function(options) {
@@ -265,13 +256,6 @@ Page({
   },
   currentChange: function(e) {
     // 更改底部周数时触发，修改当前选择的周数
-    if (interstitialAd && isAdShowed == false) {
-      isAdShowed = true;
-      interstitialAd.show().catch((err) => {
-        console.error(err)
-        isAdShowed = false;
-      })
-    }
     if (!this.data.changeLock) {
       this.data.changeLock = true
       var current = e.detail.current

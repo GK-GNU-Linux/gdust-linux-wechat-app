@@ -1,6 +1,5 @@
 //detail.js (common)
 var app = getApp();
-var WxParse = require('../../../wxParse/wxParse.js');
 module.exports.ipage = {
   data: {
     remind: "加载中",
@@ -44,6 +43,7 @@ module.exports.ipage = {
 
   onLoad: function (options) {
     var _this = this;
+    var WxParse = require('../../../wxParse/wxParse.js');
     if (!options.url) {
       _this.setData({
         remind: '404'
