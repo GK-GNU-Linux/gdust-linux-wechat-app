@@ -22,6 +22,10 @@
       "page": "/pages/news/jw/jw_detail"
     },
     {
+      "action": "allow",
+      "page": "/pages/more/about"
+    },
+    {
       "action": "disallow",
       "page": "*"
     }
