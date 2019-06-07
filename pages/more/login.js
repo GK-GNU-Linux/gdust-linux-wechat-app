@@ -114,7 +114,9 @@ Page({
     _this.checkBindResult(school_id, account).then(function (res) {
       if (res.data.status === 100) {
         // 绑定中，开始轮询
-        return _this.getBindResult(school_id, account)
+        setTimeout(function () {
+          return _this.getBindResult(school_id, account)
+        }, 500)
       }
       if (res.data.status === 200) {
         wx.hideLoading()

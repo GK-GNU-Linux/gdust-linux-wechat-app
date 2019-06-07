@@ -161,8 +161,9 @@
 }
 
 .tb-main:last-child {
-  border-bottom: 0px;
+  border-bottom: 0rpx;
   padding-bottom: 0rpx;
+  margin-bottom: 30rpx;
 }
 
 .tb-content {
