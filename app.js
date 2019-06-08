@@ -4,7 +4,7 @@ const ald = require('./utils/ald-stat.js')
 const sentry = require('./utils/sentry-mina.js')
 
 App({
-  version: 'v2.1.4', //版本号
+  version: 'v2.1.5', //版本号
   scene: 1001, //场景值
   shareTicket: null, //分享获取相同信息所需ticket
   session_id: null,
