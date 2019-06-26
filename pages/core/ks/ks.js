@@ -37,7 +37,7 @@ Page({
   onPullDownRefresh: function () {
     var _this = this;
     _this.loginHandler({
-      id: _this.data.id,
+      id: '',
     });
   },
   onLoad: function (options) {
