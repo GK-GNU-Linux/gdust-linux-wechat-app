@@ -1,7 +1,6 @@
 //app.js
 var mta = require('./utils/mta_analysis.js')
 const ald = require('./utils/ald-stat.js')
-const sentry = require('./utils/sentry-mina.js')
 
 App({
   version: 'v2.1.5', //版本号
@@ -16,10 +15,6 @@ App({
     if (options.scene) {
       _this.scene = options.scene;
     }
-    sentry.init({
-      dsn: require('config').dsn_url,
-      release: _this.version
-    })
     mta.App.init({
       "appID": require('config').mta_app_id,
       "lauchOpts": options, //渠道分析,需在onLaunch方法传入options,如onLaunch:function(options){...}
