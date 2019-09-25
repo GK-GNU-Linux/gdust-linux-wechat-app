@@ -59,7 +59,8 @@
     ]
   },
   "navigateToMiniProgramAppIdList": [
-    "wxc788f5aef8a73386"
+    "wxc788f5aef8a73386",
+    "wx4a326c92f0674dd7"
   ],
   "networkTimeout": {
     "request": 20000,

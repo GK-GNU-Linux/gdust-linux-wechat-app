@@ -103,6 +103,20 @@ Page({
           student_disable: true,
           teacher_disabled: false,
           offline_disabled: true
+        },
+        {
+          id: 'zw',
+          name: '图书馆占座',
+          btn_type: 'mini_program',
+          mini_program: {
+            app_id: 'wx4a326c92f0674dd7',
+            path: 'pages/menu/menu'
+          },
+          disabled: false,
+          guest_view: true,
+          student_disable: false,
+          teacher_disabled: false,
+          offline_disabled: false
         }
       ]
     ],
