@@ -150,7 +150,7 @@ Page({
   onShareAppMessage: function() {
     return {
       title: '莞香小喵',
-      desc: '广东科技学院唯一的小程序',
+      desc: '辅助工具',
       path: '/pages/index/index'
     };
   },
@@ -194,6 +194,17 @@ Page({
         url: url
       })
       this.data.redirect = url
+    }
+    var content = '使用本小程序(小喵)\r\n即代表同意以下条款：\r\n1.小喵提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。\r\n2.使用小喵绑定教务系统，即同意小喵代理取得教务系统个人相关信息，包括成绩与课表等\r\n3.小喵提供的内容均会缓存在小喵后台，用户使用时自动更新\r\n4.取得信息均以本校教务系统为准，小喵无法保证信息的实时性\r\n5.使用本工具风险由您自行承担，小喵不承担任何责任'
+    if (!app.cache.mzsm) {
+      // 免责声明
+      wx.showModal({
+        title: '免责声明',
+        content: content,
+        confirmColor: "#1f7bff",
+        showCancel: false
+      });
+      app.saveCache('mzsm', 1);
     }
   },
   getSchoolInfo: function() {
