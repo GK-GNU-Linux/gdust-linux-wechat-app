@@ -19,9 +19,15 @@ Page({
     });
   },
   refreshSchedule: function() {
+    wx.showToast({
+      title: '刷新中',
+      icon: 'loading',
+      duration: 1500
+    });
     app.wx_request("/school_sys/refresh_schedule", 'GET').then(
       function (res) {
         if (res.data && res.data.status === 200) {
+          wx.hideLoading()
           wx.showToast({
             title: '刷新成功',
             icon: 'success',
