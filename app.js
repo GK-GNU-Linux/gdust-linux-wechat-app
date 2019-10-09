@@ -11,6 +11,13 @@ App({
   redirect: false,
   onLaunch: function(options) {
     console.log(options)
+    // 如果有新的版本强制更新版本
+    if (wx.getUpdateManager) {
+      const updateManager = wx.getUpdateManager();
+      updateManager.onUpdateReady(() => {
+        updateManager.applyUpdate();
+      });
+    }
     var _this = this;
     if (options.scene) {
       _this.scene = options.scene;

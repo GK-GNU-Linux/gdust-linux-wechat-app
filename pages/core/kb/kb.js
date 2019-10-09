@@ -113,6 +113,28 @@ Page({
       path: `/pages/index/index?r=/pages/core/kb/kb|id:${id}`
     };
   },
+  //下拉更新
+  onPullDownRefresh: function () {
+    var _this = this;
+    app.loginLoad().then(function () {
+      app.wx_request("/school_sys/refresh_schedule", 'GET').then(
+        function (res) {
+          if (res.data && res.data.status === 200) {
+            wx.showToast({
+              title: '开始异步更新',
+              icon: 'success',
+              duration: 1500
+            });
+            wx.stopPullDownRefresh();
+          }
+        }
+      ).catch(function (res) {
+        app.showErrorModal(res.errMsg, '刷新失败');
+      })
+    }).catch(function (e) {
+      console.log(e)
+    });
+  },
   onLoad: function(options) {
     var _this = this;
     app.loginLoad().then(function() {
