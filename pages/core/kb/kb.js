@@ -121,11 +121,12 @@ Page({
         function (res) {
           if (res.data && res.data.status === 200) {
             wx.showToast({
-              title: '开始异步更新',
+              title: '更新课表成功',
               icon: 'success',
               duration: 1500
             });
             wx.stopPullDownRefresh();
+            _this.get_kb('');
           }
         }
       ).catch(function (res) {
