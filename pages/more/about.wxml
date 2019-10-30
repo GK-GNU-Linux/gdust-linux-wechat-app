@@ -19,7 +19,7 @@
     <view class="describe" wx:if="{{!showLog}}">
       <text class="desc-title">简介</text>
       <view class="desc-list">
-        <text class="desc-list-item">莞香广科官网：http://www.gxgk.cc</text>
+        <text class="desc-list-item">莞香广科官网：http://www.gxgkcat.com</text>
         <text class="desc-list-item">Github：https://github.com/gxgk/gxgk-wechat-app</text>
       </view>
       <text class="desc-content">莞香小喵，前端源码fork自重庆邮电大学we重邮微信小程序，修改并适配广科小喵后端程序，由莞香广科团队开发并运营的微信小程序。</text>

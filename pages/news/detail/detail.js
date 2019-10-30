@@ -59,7 +59,7 @@ module.exports.ipage = {
       return true;
     }
     wx.request({
-      url: 'https://news.gxgk.cc/news/detail',
+      url: app.news_server + "/news/detail",
       data: options,
       success: function (res) {
         if (res.data && res.data.status === 200) {

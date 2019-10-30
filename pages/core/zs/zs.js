@@ -220,7 +220,7 @@ Page({
     });
     app.showLoadToast();
     wx.request({
-      url: 'https://library.gxgk.cc/library/',
+      url: app.server + '/library/search_book',
       method: 'GET',
       data: {
         keyword: inputValue,

@@ -38,7 +38,7 @@ Page({
     }
     wx.showNavigationBarLoading();
     wx.request({
-      url: "https://library.gxgk.cc/library/book_detail",
+      url: app.server + "/library/book_detail",
       method: 'GET',
       data: {
         url: options.url

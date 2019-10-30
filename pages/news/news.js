@@ -141,7 +141,7 @@ Page({
     });
     wx.showNavigationBarLoading();
     wx.request({
-      url: "https://news.gxgk.cc/news/list",
+      url: app.news_server + "/news/list",
       data: {
         news_type: _this.data.list[typeId].type,
         page: _this.data.page + 1,

@@ -415,6 +415,7 @@ App({
   },
   cache: {},
   server: require('config').server,
+  news_server: require('config').news_server,
   user: {
     //微信数据
     wx_info: {},
