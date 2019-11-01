@@ -3,7 +3,7 @@ var mta = require('./utils/mta_analysis.js')
 const ald = require('./utils/ald-stat.js')
 
 App({
-  version: 'v2.1.6', //版本号
+  version: 'v2.1.11', //版本号
   scene: 1001, //场景值
   shareTicket: null, //分享获取相同信息所需ticket
   session_id: null,
