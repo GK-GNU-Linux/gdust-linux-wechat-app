@@ -11,11 +11,11 @@
     <!--显示空教室信息-->
     <scroll-view scroll-y='true' class="main-roomUl" hidden="{{errObj.errorDisplay ? false : true}}">
       <!--楼层-->
-      <block wx:for="{{testData}}" wx:key="">
+      <block wx:for="{{testData}}" wx:key="data">
         <view class="roomUl-floor">
           <!--楼层的空教室-->
           <view class="floor">
-            <block wx:for="{{item}}" wx:key="">
+            <block wx:for="{{item}}" wx:key="item">
               <text>{{item}}</text>
             </block>
           </view>
@@ -25,6 +25,17 @@
 
     <!--选择要查询的条件-->
     <view class="main-condition">
+
+      <!--选择校区-->
+      <scroll-view scroll-x="true" class="day-condition condition-classTime condition" catchtap="chooseSchoolArea">
+        <view class="scroll-space"></view>
+        <block wx:for="{{DATA.SCHOOL_ARAE}}" wx:key="*this">
+          <block wx:if="{{item != ''}}">
+            <view class="condition-li {{index == active.areaNo ? 'building-active' : ''}}" data-areaNo="{{index}}">{{item}}</view>
+          </block>
+        </block>
+        <view class="scroll-space"></view>
+      </scroll-view>
 
       <!--选择教学楼-->
       <scroll-view scroll-x="true" class="building-condition condition-building condition" catchtap="chooseBuilding">

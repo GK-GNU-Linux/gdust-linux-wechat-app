@@ -25,21 +25,23 @@ var WEEK_DATA = ['', '第一周', '第二周', '第三周', '第四周', '第五
       index: 9
     }
   ],
-  BUILDING_DATA = ['', '1栋', '2栋', '3栋', '4栋', '5栋', '6栋', '7栋', '8栋', '9栋', '工1'];
-
+  BUILDING_LIST = [[], ['', '1栋', '2栋', '3栋', '4栋', '5栋', '6栋', '7栋', '8栋', '9栋', '工1'], ['', '松4', '松5', '松6', '松L3', '松L6']],
+  SCHOOL_ARAE = ['', '南城', '松山湖']
 Page({
   data: {
     DATA: {
+      SCHOOL_ARAE: SCHOOL_ARAE,
       WEEK_DATA: WEEK_DATA,
       DAY_DATA: DAY_DATA,
       CLASSTIME_DATA: CLASSTIME_DATA,
-      BUILDING_DATA: BUILDING_DATA,
+      BUILDING_DATA: BUILDING_LIST[1],
     },
     active: { // 发送请求的数据对象 初始为默认值
       weekNo: 1,
       weekDay: 1,
       buildingNo: 1,
       classNo: 1,
+      areaNo: 1,
     },
     errObj: {
       errorDisplay: false
@@ -135,6 +137,7 @@ Page({
       activeData = _this.data.active;
     return new Promise(function(resolve, reject) {
       var requestData = {
+        campus_area: query.areaNo || activeData.areaNo,
         weeks: query.weekNo || activeData.weekNo,
         week: query.weekDay || activeData.weekDay,
         class_time: _this.data.DATA.CLASSTIME_DATA[query.classNo || activeData.classNo].index,
@@ -212,7 +215,23 @@ Page({
       });
     });
   },
-
+  chooseSchoolArea: function(e) {
+    var _this = this;
+    var index = parseInt(e.target.dataset.areano, 10);
+    if (isNaN(index)) {
+      return false;
+    }
+    this.sendRequest({
+      buildingNo: 1,
+      areaNo: index
+    }).then(function () {
+      _this.setData({
+        'DATA.BUILDING_DATA': BUILDING_LIST[index],
+        'active.areaNo': index,
+        'active.buildingNo': 1
+      });
+    });
+  },
   // classTime
   chooseClaasTime: function(e) {
     var _this = this;
