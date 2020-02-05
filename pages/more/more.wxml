@@ -71,12 +71,12 @@
           <image class="btn-icon" src="/images/more/setting.png"></image>
           <text class="btn-text">刷新课表</text>
         </view>
-      <!-- <navigator url="/pages/more/issues">
+      <button open-type="feedback">
         <view class="more-info-btn">
           <image class="btn-icon" src="/images/more/envelope.png"></image>
           <text class="btn-text">用户反馈</text>
         </view>
-      </navigator> -->
+      </button>
       <navigator url="about">
         <view class="more-info-btn">
           <image class="btn-icon" src="/images/more/aboutmiao.png"></image>

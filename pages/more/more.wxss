@@ -125,5 +125,15 @@
     font-family: '微软雅黑';
   }
 }
+.more-info button {
+  border:none;
+  text-align: left;
+  padding: 0px;
+  position: none;
+  box-sizing: none;
+  color: #666;
+}
 
-
+.more-info button::after{
+  border:none;
+}
