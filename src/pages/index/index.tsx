@@ -14,7 +14,8 @@ import './index.scss'
 export const Index = (): JSX.Element => {
 
   return (
-    <View className='index'>
+    <View className='Index'>
+      home
     </View>
   )
 
