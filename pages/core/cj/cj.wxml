@@ -21,7 +21,7 @@
       <view class="cj-grade">
         <view class="cj-grade-term">
           <view class="cj-grade-fst">
-            <text>{{xqName}}</text>
+            <text>{{xqName}}</text> <!--学年学期 e.g 2021-2022 第一学期-->
           </view>
         </view>
         <view class="cj-grade-info">
