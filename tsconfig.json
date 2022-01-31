@@ -24,7 +24,12 @@
     ],
     "types": [
       "miniprogram-api-typings"
-    ]
+    ],
+    "paths": {
+      "@/*":["src/*"],
+      "@components/*":["src/components/*"],
+      "@img/*":["src/assets/images/*"]
+    }
   },
   "exclude": [
     "node_modules",

@@ -1,6 +1,6 @@
-import {View} from '@tarojs/components'
+import { View } from '@tarojs/components'
 import './index.scss'
-
+import { CCard } from '@components/CCard'
 // #region 书写注意
 //
 // 目前 typescript 版本还无法在装饰器模式下将 Props 注入到 Taro.Component 中的 props 属性
@@ -12,10 +12,13 @@ import './index.scss'
 // #endregion
 
 export const Index = (): JSX.Element => {
+  const navList = []
 
   return (
     <View className='Index'>
-      home
+      <View className='p-4'>
+        <CCard content={"1111"}/>
+      </View>
     </View>
   )
 
