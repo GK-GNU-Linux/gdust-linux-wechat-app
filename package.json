@@ -38,15 +38,17 @@
   "dependencies": {
     "@babel/runtime": "^7.7.7",
     "@tarojs/components": "3.2.8",
+    "@tarojs/react": "3.2.8",
     "@tarojs/runtime": "3.2.8",
     "@tarojs/taro": "3.2.8",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "redux": "^4.0.0",
-    "react-redux": "^7.2.0",
+    "@types/wechat-miniprogram": "^3.4.0",
+    "miniprogram-api-typings": "^3.4.5",
+    "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "@tarojs/react": "3.2.8",
-    "react": "^17.0.0"
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.13.6",
