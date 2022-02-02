@@ -62,6 +62,7 @@ const config = {
     }
   },
   alias:{
+    '~':path.resolve(__dirname,'..'),
     '@':path.resolve(__dirname,'..','src'),
     '@components':path.resolve(__dirname,'..','src/components'),
     '@img':path.resolve(__dirname,'..','src/assets/images')

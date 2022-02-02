@@ -6,6 +6,7 @@ const range = (size) =>
   )
 
 module.exports = {
+  content: ['./src/**/*.{html,js,tsx}'],
   preflight: false,
   separator: '_',
   compile: false,
