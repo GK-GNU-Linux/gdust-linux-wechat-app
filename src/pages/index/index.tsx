@@ -4,6 +4,7 @@ import { CCard } from '@components/CCard'
 import { classnames } from '~/tailwindcss-classnames'
 import Kb from '@img/core/kb.png'
 import Cj from '@img/core/cj.png'
+import Taro from '@tarojs/taro'
 // #region 书写注意
 //
 // 目前 typescript 版本还无法在装饰器模式下将 Props 注入到 Taro.Component 中的 props 属性
@@ -17,19 +18,22 @@ import Cj from '@img/core/cj.png'
 type navItem = {
   icon: string,
   text: string,
+  url: string,
 }
 
 type navType = Array<navItem>
 
-export const Index = (): JSX.Element => {
+const Index = (): JSX.Element => {
   const navList: navType = [
     {
       icon: Kb,
-      text: '课程表'
+      text: '课程表',
+      url: '/subPackages/classSchedule/index'
     },
     {
       icon: Cj,
-      text: '查询成绩'
+      text: '查询成绩',
+      url: ''
     }
   ]
 
@@ -38,7 +42,7 @@ export const Index = (): JSX.Element => {
       {
         navList &&
         navList.map((item, index) => (
-          <View key={index} className={classnames('flex', 'flex-col', 'items-center')}>
+          <View key={index} className={classnames('flex', 'flex-col', 'items-center')} onClick={() => goView(item.url)}>
             <Image className={classnames('w-10', 'h-10', 'mb-1')} src={item.icon} />
             <Text className={classnames('text-xs')}>{item.text}</Text>
           </View>
@@ -47,9 +51,15 @@ export const Index = (): JSX.Element => {
     </View>
   }
 
+  const goView = (url) => {
+    Taro.navigateTo({
+      url
+    })
+  }
+
   return (
-    <View className='Index'>
-      <View className={classnames('p-2')}>
+    <View className='Index GeneralBg'>
+      <View className={classnames('p-4')}>
         <CCard content={navCard()} />
       </View>
     </View>

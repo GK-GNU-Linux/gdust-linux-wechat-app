@@ -3,6 +3,9 @@ export default {
     'pages/index/index',
     'pages/user/index'
   ],
+  subPackages: [
+    { root:'subPackages/classSchedule', pages:['index']}
+  ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#089def',
@@ -11,7 +14,7 @@ export default {
   },
   tabBar: {
     color: '#8e8e93',
-    selectedColor: '#00A8EA',
+    selectedColor: '#8e8e93',
     backgroundColor: '#FFF',
     borderStyle: 'white',
     list: [
