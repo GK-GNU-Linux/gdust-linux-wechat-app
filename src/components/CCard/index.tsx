@@ -7,8 +7,8 @@ type PropsType = {
 
 export const CCard = (props: PropsType): JSX.Element => {
   return (
-    <View className={classnames('bg-white','border-2','rounded-md')}>
-      <View className={classnames('p-2')}>
+    <View className={classnames('bg-white','border-2','border-gray-200','rounded-md','shadow-2xl','bg-blend-screen')}>
+      <View className={classnames('p-4')}>
         {props.content}
       </View>
     </View>

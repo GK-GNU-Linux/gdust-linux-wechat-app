@@ -38,9 +38,9 @@ export const Index = (): JSX.Element => {
       {
         navList &&
         navList.map((item, index) => (
-          <View key={index} className={classnames('flex', 'flex-col')}>
-            <Image className={'w-2_4 h-10'} src={item.icon} />
-            <Text>{item.text}</Text>
+          <View key={index} className={classnames('flex', 'flex-col', 'items-center')}>
+            <Image className={classnames('w-10', 'h-10', 'mb-1')} src={item.icon} />
+            <Text className={classnames('text-xs')}>{item.text}</Text>
           </View>
         ))
       }
@@ -49,7 +49,7 @@ export const Index = (): JSX.Element => {
 
   return (
     <View className='Index'>
-      <View className='p-4'>
+      <View className={classnames('p-2')}>
         <CCard content={navCard()} />
       </View>
     </View>
