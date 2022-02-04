@@ -4,5 +4,5 @@ module.exports = {
   ald: {
     app_key: ''
   },
-  server: ''
+  server: 'http://farmer233.asuscomm.com:5000'
 }

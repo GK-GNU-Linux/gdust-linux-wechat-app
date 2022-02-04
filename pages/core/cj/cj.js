@@ -40,12 +40,13 @@ Page({
   onLoad: function(options) {
     var _this = this;
     //判断并读取缓存
-    if (app.cache.cj && !options.id) {
-      _this.cjRender(app.cache.cj);
-    }
-    app.loginLoad().then(function() {
-      _this.loginHandler.call(_this, options);
-    });
+    // if (app.cache.cj && !options.id) {
+    //   _this.cjRender(app.cache.cj);
+    // }
+    // app.loginLoad().then(function() {
+    //   _this.loginHandler.call(_this, options);
+    // });
+    _this.getData()
   },
   loginHandler: function(options) {
     var _this = this;
@@ -57,7 +58,7 @@ Page({
     this.setData({
       account: data.account,
       real_name: data.real_name,
-      share_id: data.share_id,
+      share_id: data.share_id || 233,
       rank: data.rank || null,
       cjInfo: data.score,
       xqName: data.year + '学年 第' + data.term + '学期',
@@ -65,48 +66,74 @@ Page({
       remind: ''
     });
   },
-  getData: function(share_id) {
+  getData: function() { //share_id
     var _this = this;
-    var share_id = share_id;
-    wx.showNavigationBarLoading();
-    app.wx_request("/school_sys/api_score", "GET", {
-      'share_id': share_id
-    }).then(function(res) {
-      if (res.data && res.data.status === 200) {
-        var _data = res.data.data;
-        if (!_data) {
-          app.removeCache('cj');
-          _this.setData({
-            remind: res.data.msg || '未知错误'
-          });
-          wx.hideNavigationBarLoading()
-          wx.stopPullDownRefresh();
-          return;
-        }
-        if (_data.score && Object.keys(_data.score).length != 0) {
-          //保存成绩缓存
-          app.saveCache('cj', _data);
-          _this.cjRender(_data);
-        } else {
-          _this.setData({
-            remind: '暂无数据'
-          });
-        }
-      } else {
-        app.removeCache('cj');
-        _this.setData({
-          remind: res.data.msg || '未知错误'
-        });
+    var data = {
+      "account": "2019123456",
+      "real_name": "小明",
+      "year": 2021,
+      "term":1,
+      "score": [
+        {
+          "lesson_name": "课程名-1",
+          "pscj": 43, //平时分
+          "qmcj": 66, //卷面分
+          "score": 59
+        },
+        {
+          "lesson_name": "课程名-2",
+          "pscj": 43, //平时分
+          "qmcj": 66, //卷面分
+          "score": 66
+        },
+      ],
+      "rank": {
+          "avgGpa": 233.3,
+          "class_rank": 1,
+          "credits": 1234
       }
-      wx.hideNavigationBarLoading()
-      wx.stopPullDownRefresh();
-    }).catch(function(res) {
-      _this.setData({
-        remind: '网络错误'
-      });
-      console.warn('网络错误');
-      wx.hideNavigationBarLoading();
-      wx.stopPullDownRefresh();
-    });
+    }
+    _this.cjRender(data)
+    // var share_id = share_id;
+    // wx.showNavigationBarLoading();
+    // app.wx_request("/school_sys/api_score", "GET", {
+    //   'share_id': share_id
+    // }).then(function(res) {
+    //   if (res.data && res.data.status === 200) {
+    //     var _data = res.data.data;
+    //     if (!_data) {
+    //       app.removeCache('cj');
+    //       _this.setData({
+    //         remind: res.data.msg || '未知错误'
+    //       });
+    //       wx.hideNavigationBarLoading()
+    //       wx.stopPullDownRefresh();
+    //       return;
+    //     }
+    //     if (_data.score && Object.keys(_data.score).length != 0) {
+    //       //保存成绩缓存
+    //       app.saveCache('cj', _data);
+    //       _this.cjRender(_data);
+    //     } else {
+    //       _this.setData({
+    //         remind: '暂无数据'
+    //       });
+    //     }
+    //   } else {
+    //     app.removeCache('cj');
+    //     _this.setData({
+    //       remind: res.data.msg || '未知错误'
+    //     });
+    //   }
+    //   wx.hideNavigationBarLoading()
+    //   wx.stopPullDownRefresh();
+    // }).catch(function(res) {
+    //   _this.setData({
+    //     remind: '网络错误'
+    //   });
+    //   console.warn('网络错误');
+    //   wx.hideNavigationBarLoading();
+    //   wx.stopPullDownRefresh();
+    // });
   }
 });
