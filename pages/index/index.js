@@ -359,7 +359,7 @@ Page({
       _this.setData({
         'card.kb.data': info,
         'card.kb.show': true,
-        'card.kb.nothing': !data.length,
+        'card.kb.nothing': !info.length,
         'remind': ''
       });
     }
@@ -383,19 +383,23 @@ Page({
     //   // });
       
     // })
-    var data = [
-      {
-        "name": "课程名-1",
-        "time": "8:30 ~ 10:05",
-        "place": "松6-203"
+    wx.request({
+      url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/today/2019133238',
+      method: 'GET',
+      header: {
+        'context-type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsImlhdCI6MTY0Mzk3MzU5NSwiZXhwIjoxNjQ0NTc4Mzk1fQ.eyJpZCI6MiwiYWNjb3VudCI6IjIwMTkxMzMyMzgifQ.d3qXCuv-SVlRScLBAhhHy3baTBVjwEbV7-IAZJ79ShoQITowvS4Obmr4sesiYq5L8NBuaMHcRQgY3YHdD3yG-Q'
       },
-      {
-        "name": "课程名-2",
-        "time": "10:25 ~ 12:00",
-        "place": "松6-601"
+      success(res) {
+        console.log(res.data.detail)
+        const info = res.data.detail
+        //console.log(data)
+        kbRender(info);
+      },
+      fail() {
+        console.log("fail")
       }
-    ]
-    kbRender(data)
+    })
   },
   
   getMealcardCard: function() {
