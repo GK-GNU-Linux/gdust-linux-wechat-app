@@ -7,7 +7,7 @@
   <view class="content">
     <view class="version">
       <view class="version-title">
-        <text class="title-name">莞香小喵</text>
+        <text class="title-name">e广科</text>
         <text class="version-text">{{version}}</text>
         <text class="version-text">正式版</text>
       </view>
@@ -19,19 +19,19 @@
     <view class="describe" wx:if="{{!showLog}}">
       <text class="desc-title">简介</text>
       <view class="desc-list">
-        <text class="desc-list-item">莞香广科官网：http://www.gxgkcat.com</text>
-        <text class="desc-list-item">Github：https://github.com/gxgk/gxgk-wechat-app</text>
+        <text class="desc-list-item">e广科</text>
+        <text class="desc-list-item">Github：https://github.com/GK-GNU-Linux/gdust-linux-wechat-app</text>
       </view>
-      <text class="desc-content">莞香小喵，前端源码fork自重庆邮电大学we重邮微信小程序，修改并适配广科小喵后端程序，由莞香广科团队开发并运营的微信小程序。</text>
+      <text class="desc-content">e广科，前端源码fork自广科莞香小喵微信小程序，修改并适配e广科后端程序，由e广科团队开发并运营的微信小程序。</text>
       <text class="desc-content">提供多元化的校园功能，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
     <text class="desc-title">免责声明</text>
     <view class="desc-list">
-        <text class="desc-list-item">使用本小程序(小喵)即代表同意以下条款：</text>
-        <text class="desc-list-item">1.小喵提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。</text>
-        <text class="desc-list-item">2.使用小喵绑定教务系统，即同意小喵代理取得教务系统个人相关信息，包括成绩与课表等</text>
-        <text class="desc-list-item">3.小喵提供的内容均会缓存在小喵后台，用户使用时自动更新</text>
-        <text class="desc-list-item">4.取得信息均以本校教务系统为准，小喵无法保证信息的实时性</text>
-        <text class="desc-list-item">5.使用本工具风险由您自行承担，小喵不承担任何责任</text>
+        <text class="desc-list-item">使用本小程序(e广科)即代表同意以下条款：</text>
+        <text class="desc-list-item">1.e广科提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。</text>
+        <text class="desc-list-item">2.使用e广科绑定教务系统，即同意e广科代理取得教务系统个人相关信息，包括成绩与课表等</text>
+        <text class="desc-list-item">3.e广科提供的内容均会缓存在e广科后台，用户使用时自动更新</text>
+        <text class="desc-list-item">4.取得信息均以本校教务系统为准，e广科无法保证信息的实时性</text>
+        <text class="desc-list-item">5.使用本工具风险由您自行承担，e广科不承担任何责任</text>
       </view>
     </view>
     <view class="log-list" wx:else>
@@ -217,7 +217,7 @@
   <view class="footer">
     <view class="footer-gx">
       <image src="/images/more/gx.png"></image>
-      <text>莞香广科</text>
+      <text>e广科</text>
     </view>
     <text>Copyright @ 2012-{{year}} All Rights Reserved</text>
   </view>

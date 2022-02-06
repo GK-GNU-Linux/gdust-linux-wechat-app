@@ -117,35 +117,25 @@ Page({
   onPullDownRefresh: function () {
     var _this = this;
     app.loginLoad().then(function () {
-      app.wx_request("/school_sys/refresh_schedule", 'GET').then(
-        function (res) {
-          if (res.data && res.data.status === 200) {
-            wx.showToast({
-              title: '更新课表成功',
-              icon: 'success',
-              duration: 1500
-            });
-            wx.stopPullDownRefresh();
-            _this.get_kb('');
-          }
-        }
-      ).catch(function (res) {
-        app.showErrorModal(res.errMsg, '刷新失败');
-      })
+      _this.get_kb()
+      wx.showToast({
+        title: '更新课表成功',
+        icon: 'success',
+        duration: 1500
+      });
+      wx.stopPullDownRefresh();
     }).catch(function (e) {
       console.log(e)
     });
   },
   onLoad: function(options) {
     var _this = this;
-    // app.loginLoad().then(function() {
-    //   _this.loginHandler(options);
-    //   var is_teacher = app.user.auth_user.user_type || 0
-    //   _this.setData({
-    //     'teacher': is_teacher == 1
-    //   });
-    // });
-    _this.get_kb()
+    app.loginLoad().then(function () {
+      _this.get_kb()
+    }).catch(err => {
+      console.log(err)
+    })
+    
   },
   //让分享时自动登录
   loginHandler: function(options) {
@@ -400,7 +390,7 @@ Page({
       });
       _this.setData({
         today: today,
-        week: week,
+        week: 11,
         toweek: toweek,
         lessons: lessons,
         dates: dates,
@@ -409,36 +399,15 @@ Page({
     }
     wx.showNavigationBarLoading();
     //获取课表
-    //   var data = {lessons: [
-    //     [[{"place": "8-503", "name": "形势与政策", "time": "8:30 ~ 10:05", "color": "blue", "section": 2, "weeks_text": "8", "weeks_arr": [8], "teacher": "潘晶晶"}], [{"place": "8-501", "name": "思政课实践教学", "time": "10:25 ~ 12:00", "color": "purple", "section": 2, "weeks_text": "7,13", "weeks_arr": [7, 13], "teacher": "周红禄"}, {"place": "8-505", "name": "毛泽东思想和中国特色社会主义理论体系概论", "time": "10:25 ~ 12:00", "color": "purple", "section": 2, "weeks_text": "1-6,8-12,14-18", "weeks_arr": [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18], "teacher": "周红禄"}], [{"place": "4-402", "name": "大学生职业发展与就业指导", "time": "14:40 ~ 16:15", "color": "red", "section": 2, "weeks_text": "1-4", "weeks_arr": [1, 2, 3, 4], "teacher": "朱玲梅"}], [], []],
-    //     [[], [{"place": "9-202", "name": "Android开发技术", "time": "10:25 ~ 12:00", "color": "green", "section": 2, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "段汝林"}], [], [], []],
-    //     [[{"place": "8-506", "name": "UI设计及应用", "time": "8:30 ~ 12:00", "color": "purple", "section": 4, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "陈萍"}], [], [{"place": "8-306", "name": "数据库应用技术", "time": "14:40 ~ 17:15", "color": "yellow", "section": 3, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "张晓健"}], [], []],
-    //     [[], [{"place": "9-202", "name": "Java Web开发技术", "time": "10:25 ~ 12:00", "color": "blue", "section": 2, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "段汝林"}], [{"place": "9-202", "name": "Android开发技术", "time": "14:40 ~ 16:15", "color": "purple", "section": 2, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "段汝林"}], [{"place": "8-503", "name": "形势与政策", "time": "16:30 ~ 18:05", "color": "red", "section": 2, "weeks_text": "10", "weeks_arr": [10], "teacher": "卓泽楼"}], []],
-    //     [[{"place": "9-202", "name": "Java Web开发技术", "time": "8:30 ~ 10:05", "color": "red", "section": 2, "weeks_text": "1-19", "weeks_arr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], "teacher": "段汝林"}], [], [], [], []],
-    //     [[], [], [], [], []],
-    //     [[], [], [], [], []]
-    //   ],
-    //   real_name: "xxx",
-    //   week: 12,
-    //   today: 2
-    // }
-    // kbRender(data);
-      wx.request({
-        url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/schedule/2019133238',
-        method: 'GET',
-        header: {
-          'context-type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsImlhdCI6MTY0Mzk3MzU5NSwiZXhwIjoxNjQ0NTc4Mzk1fQ.eyJpZCI6MiwiYWNjb3VudCI6IjIwMTkxMzMyMzgifQ.d3qXCuv-SVlRScLBAhhHy3baTBVjwEbV7-IAZJ79ShoQITowvS4Obmr4sesiYq5L8NBuaMHcRQgY3YHdD3yG-Q'
-        },
-        success(res) {
-          //console.log(res.data.detail)
+      app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
+        function(res) {
           var data = res.data.detail
-          //console.log(data)
-          kbRender(data);
-        },
-        fail() {
-          console.log("fail")
+          kbRender(data)
         }
+      ).catch(err => {
+        var course = []
+        kbRender(course)
+        console.log("error",err)
       })
       wx.hideNavigationBarLoading();
   }
