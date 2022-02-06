@@ -117,35 +117,25 @@ Page({
   onPullDownRefresh: function () {
     var _this = this;
     app.loginLoad().then(function () {
-      app.wx_request("/school_sys/refresh_schedule", 'GET').then(
-        function (res) {
-          if (res.data && res.data.status === 200) {
-            wx.showToast({
-              title: '更新课表成功',
-              icon: 'success',
-              duration: 1500
-            });
-            wx.stopPullDownRefresh();
-            _this.get_kb('');
-          }
-        }
-      ).catch(function (res) {
-        app.showErrorModal(res.errMsg, '刷新失败');
-      })
+      _this.get_kb()
+      wx.showToast({
+        title: '更新课表成功',
+        icon: 'success',
+        duration: 1500
+      });
+      wx.stopPullDownRefresh();
     }).catch(function (e) {
       console.log(e)
     });
   },
   onLoad: function(options) {
     var _this = this;
-    // app.loginLoad().then(function() {
-    //   _this.loginHandler(options);
-    //   var is_teacher = app.user.auth_user.user_type || 0
-    //   _this.setData({
-    //     'teacher': is_teacher == 1
-    //   });
-    // });
-    _this.get_kb()
+    app.loginLoad().then(function () {
+      _this.get_kb()
+    }).catch(err => {
+      console.log(err)
+    })
+    
   },
   //让分享时自动登录
   loginHandler: function(options) {
@@ -400,7 +390,7 @@ Page({
       });
       _this.setData({
         today: today,
-        week: week,
+        week: 11,
         toweek: toweek,
         lessons: lessons,
         dates: dates,
@@ -423,22 +413,31 @@ Page({
     //   today: 2
     // }
     // kbRender(data);
-      wx.request({
-        url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/schedule/2019133238',
-        method: 'GET',
-        header: {
-          'context-type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsImlhdCI6MTY0Mzk3MzU5NSwiZXhwIjoxNjQ0NTc4Mzk1fQ.eyJpZCI6MiwiYWNjb3VudCI6IjIwMTkxMzMyMzgifQ.d3qXCuv-SVlRScLBAhhHy3baTBVjwEbV7-IAZJ79ShoQITowvS4Obmr4sesiYq5L8NBuaMHcRQgY3YHdD3yG-Q'
-        },
-        success(res) {
-          //console.log(res.data.detail)
+      // wx.request({
+      //   url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/schedule/2019133238',
+      //   method: 'GET',
+      //   header: {
+      //     'context-type': 'application/json',
+      //     'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsImlhdCI6MTY0Mzk3MzU5NSwiZXhwIjoxNjQ0NTc4Mzk1fQ.eyJpZCI6MiwiYWNjb3VudCI6IjIwMTkxMzMyMzgifQ.d3qXCuv-SVlRScLBAhhHy3baTBVjwEbV7-IAZJ79ShoQITowvS4Obmr4sesiYq5L8NBuaMHcRQgY3YHdD3yG-Q'
+      //   },
+      //   success(res) {
+      //     //console.log(res.data.detail)
+      //     var data = res.data.detail
+      //     //console.log(data)
+      //     kbRender(data);
+      //   },
+      //   fail() {
+      //     console.log("fail")
+      //   }
+      // })
+      app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
+        function(res) {
           var data = res.data.detail
           //console.log(data)
-          kbRender(data);
-        },
-        fail() {
-          console.log("fail")
+          kbRender(data)
         }
+      ).catch(err => {
+        console.log("error",err)
       })
       wx.hideNavigationBarLoading();
   }

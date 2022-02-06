@@ -68,32 +68,40 @@ Page({
   },
   getData: function() { //share_id
     var _this = this;
-    var data = {
-      "account": "2019123456",
-      "real_name": "小明",
-      "year": 2021,
-      "term":1,
-      "score": [
-        {
-          "lesson_name": "课程名-1",
-          "pscj": 43, //平时分
-          "qmcj": 66, //卷面分
-          "score": 59
-        },
-        {
-          "lesson_name": "课程名-2",
-          "pscj": 43, //平时分
-          "qmcj": 66, //卷面分
-          "score": 66
-        },
-      ],
-      "rank": {
-          "avgGpa": 233.3,
-          "class_rank": 1,
-          "credits": 1234
+    app.wx_request("/api/v1/score/2021/1", "GET").then(
+      function(res) {
+        if (res.data && res.data.message === 'success') {
+          console.log(res.data.detail)
+          var data = {
+            "account": "2019123456",
+            "real_name": "小明",
+            "year": 2021,
+            "term":1,
+            "score": [
+              {
+                "lesson_name": "课程名-1",
+                "pscj": 43, //平时分
+                "qmcj": 66, //卷面分
+                "score": 59
+              },
+              {
+                "lesson_name": "课程名-2",
+                "pscj": 43, //平时分
+                "qmcj": 66, //卷面分
+                "score": 66
+              },
+            ],
+            "rank": {
+                "avgGpa": 233.3,
+                "class_rank": 1,
+                "credits": 1234
+            }
+          }
+          _this.cjRender(data);
+        }
       }
-    }
-    _this.cjRender(data)
+    )
+    
     // var share_id = share_id;
     // wx.showNavigationBarLoading();
     // app.wx_request("/school_sys/api_score", "GET", {

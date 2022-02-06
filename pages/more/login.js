@@ -46,35 +46,38 @@ Page({
   },
   onLoad: function(options) {
     var _this = this;
-    app.loginLoad().then(function() {
-      _this.getSchoolList().then(function(res) {
-        _this.setData({
-          remind: ''
-        });
-      }).catch(function(res) {
-        _this.setData({
-          remind: res.errMsg
-        });
-      });
+    // app.loginLoad().then(function() {
+    //   _this.getSchoolList().then(function(res) {
+    //     _this.setData({
+    //       remind: ''
+    //     });
+    //   }).catch(function(res) {
+    //     _this.setData({
+    //       remind: res.errMsg
+    //     });
+    //   });
+    // });
+    _this.setData({
+      remind: ''
     });
   },
-  getSchoolList: function() {
-    var _this = this;
-    return new Promise(function(resolve, reject) {
-      app.wx_request("/school_sys/school_list").then(
-        function(res) {
-          if (res.data && res.data.status === 200) {
-            _this.setData({
-              schools_list: res.data.data
-            })
-            resolve();
-          }
-        }
-      ).catch(function(res) {
-        reject(res);
-      })
-    })
-  },
+  // getSchoolList: function() {
+  //   var _this = this;
+  //   return new Promise(function(resolve, reject) {
+  //     app.wx_request("/school_sys/school_list").then(
+  //       function(res) {
+  //         if (res.data && res.data.status === 200) {
+  //           _this.setData({
+  //             schools_list: res.data.data
+  //           })
+  //           resolve();
+  //         }
+  //       }
+  //     ).catch(function(res) {
+  //       reject(res);
+  //     })
+  //   })
+  // },
   bind: function() {
     var _this = this;
     if (!_this.data.userid || !_this.data.passwd) {
@@ -84,18 +87,33 @@ Page({
     wx.showLoading({
       title: '绑定中',
     })
-    var school_id = _this.data.schools_list[_this.data.index].id;
+    // var school_id = _this.data.schools_list[_this.data.index].id;
     var account = _this.data.userid;
     var data = {
       account: account,
-      password: _this.data.passwd,
-      school_id: school_id,
-      usertype: _this.data.utype
+      password: _this.data.passwd
     }
-    app.wx_request("/school_sys/xcx_bind", 'POST', data).then(
+    app.wx_request("/api/v1/account/login", 'POST', data).then(
       function(res) {
-        if (res.data && res.data.status === 200) {
-          _this.getBindResult(school_id, account)
+        console.log(1111111)
+        if (res.data && res.data.message === 'success') {
+          wx.setStorageSync('token', "Bearer " + res.data.detail.token);
+          wx.setStorageSync('account', res.data.detail.account)
+          console.log("token" + res.data.detail.token)
+          console.log("account" + res.data.detail.account)
+          wx.hideLoading()
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'success',
+            duration: 1000
+          });
+          setTimeout(function () {
+            // 直接跳转回首页
+            wx.reLaunch({
+              url: '/pages/index/index'
+            })
+          }, 1000)
+          //console.log(233)
           return
         } else {
           wx.hideToast();
@@ -109,13 +127,13 @@ Page({
       app.showErrorModal(res.errMsg, '绑定失败');
     })
   },
-  getBindResult: function (school_id, account){
+  getBindResult: function (account){
     var _this = this;
-    _this.checkBindResult(school_id, account).then(function (res) {
+    _this.checkBindResult(account).then(function (res) {
       if (res.data.status === 100) {
         // 绑定中，开始轮询
         setTimeout(function () {
-          return _this.getBindResult(school_id, account)
+          return _this.getBindResult(account)
         }, 500)
       }
       if (res.data.status === 200) {

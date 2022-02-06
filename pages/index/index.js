@@ -20,7 +20,7 @@ Page({
         {
           id: 'cj',
           name: '成绩查询',
-          disabled: false,
+          disabled: true,
           guest_view: false,
           student_disable: false,
           teacher_disabled: true,
@@ -89,7 +89,7 @@ Page({
             app_id: 'wxc788f5aef8a73386',
             path: 'pages/index'
           },
-          disabled: false,
+          disabled: true,
           guest_view: true,
           student_disable: false,
           teacher_disabled: false,
@@ -98,7 +98,7 @@ Page({
         {
           id: 'xs',
           name: '学生查询',
-          disabled: false,
+          disabled: true,
           guest_view: false,
           student_disable: true,
           teacher_disabled: false,
@@ -112,7 +112,7 @@ Page({
             app_id: 'wx4a326c92f0674dd7',
             path: 'pages/menu/menu'
           },
-          disabled: false,
+          disabled: true,
           guest_view: true,
           student_disable: false,
           teacher_disabled: false,
@@ -157,14 +157,15 @@ Page({
   //下拉更新
   onPullDownRefresh: function() {
     var _this = this;
-    // app.loginLoad().then(function() {
-    //   _this.getSchoolInfo().then(function() {
-    //     _this.initButton();
-    //     _this.getCardData();
-    //   })
-    // }).catch(function(e) {
-    //   console.log(e)
-    // });
+    app.loginLoad().then(function() {
+      _this.getSchoolInfo().then(function() {
+        _this.initButton();
+        _this.getCardData();
+      })
+    }).catch(function(e) {
+      console.log(e)
+    });
+    wx.stopPullDownRefresh();
   },
   onShow: function() {
     var _this = this;
@@ -206,7 +207,7 @@ Page({
     //   })
     //   this.data.redirect = url
     // }
-    var content = '使用本小程序(小喵)\r\n即代表同意以下条款：\r\n1.小喵提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。\r\n2.使用小喵绑定教务系统，即同意小喵代理取得教务系统个人相关信息，包括成绩与课表等\r\n3.小喵提供的内容均会缓存在小喵后台，用户使用时自动更新\r\n4.取得信息均以本校教务系统为准，小喵无法保证信息的实时性\r\n5.使用本工具风险由您自行承担，小喵不承担任何责任'
+    var content = '使用本小程序(e广科)\r\n即代表同意以下条款：\r\n1.e广科提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。\r\n2.使用e广科绑定教务系统，即同意e广科代理取得教务系统个人相关信息，包括成绩与课表等\r\n3.e广科提供的内容均会缓存在e广科后台，用户使用时自动更新\r\n4.取得信息均以本校教务系统为准，e广科无法保证信息的实时性\r\n5.使用本工具风险由您自行承担，e广科不承担任何责任'
     if (!app.cache.mzsm) {
       // 免责声明
       wx.showModal({
@@ -383,22 +384,28 @@ Page({
     //   // });
       
     // })
-    wx.request({
-      url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/today/2019133238',
-      method: 'GET',
-      header: {
-        'context-type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsImlhdCI6MTY0Mzk3MzU5NSwiZXhwIjoxNjQ0NTc4Mzk1fQ.eyJpZCI6MiwiYWNjb3VudCI6IjIwMTkxMzMyMzgifQ.d3qXCuv-SVlRScLBAhhHy3baTBVjwEbV7-IAZJ79ShoQITowvS4Obmr4sesiYq5L8NBuaMHcRQgY3YHdD3yG-Q'
-      },
-      success(res) {
-        console.log(res.data.detail)
-        const info = res.data.detail
-        //console.log(data)
-        kbRender(info);
-      },
-      fail() {
-        console.log("fail")
+    // wx.request({
+    //   url: 'http://farmer233.asuscomm.com:5000/api/v1/schedule/today/2019133238',
+    //   method: 'GET',
+    //   success(res) {
+    //     console.log(res.data.detail)
+    //     const info = res.data.detail
+    //     //console.log(data)
+    //     kbRender(info);
+    //   },
+    //   fail() {
+    //     console.log("fail")
+    //   }
+    // })
+    app.wx_request("/api/v1/schedule/today/" + wx.getStorageSync('account'), "GET").then(
+      function(res) {
+        var data = res.data.detail
+        kbRender(data)
       }
+    ).catch(err => {
+      var info = []
+      kbRender(info)
+      console.log("error",err)
     })
   },
   

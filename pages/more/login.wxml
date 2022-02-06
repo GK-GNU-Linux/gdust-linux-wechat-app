@@ -14,29 +14,29 @@
       </view>
       <view class="bd">
         <form class="login-form">
-          <view class="input-group">
+          <!-- <view class="input-group">
             <picker style="padding: 0 0rpx;" bindchange="schoolPickerChange" value="{{index}}" range-key="name" range="{{schools_list}}">
               <view class="picker">
                 <text class="input-label">学校</text>
                 <text style="padding: 0 25rpx;">{{schools_list[index].name}}</text>
               </view>
             </picker>
-          </view>
+          </view> -->
           <view class="input-group {{userid_focus ? 'active' : ''}}">
             <text class="input-label">帐号</text>
-            <input cursor-spacing="30" id="userid" maxlength="11" placeholder="请输入你的学号/职工号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input cursor-spacing="30" id="userid" maxlength="11" placeholder="请输入你的学号" bindinput="useridInput" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
           <view class="input-group {{passwd_focus ? 'active' : ''}}">
             <text class="input-label">密码</text>
-            <input password="true" cursor-spacing="30" id="passwd" placeholder="初始密码为身份证/职工号" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
+            <input password="true" cursor-spacing="30" id="passwd" placeholder="请输入你的密码" bindinput="passwdInput" bindfocus="inputFocus" bindblur="inputBlur" />
           </view>
-          <view class="user-type">
+          <!-- <view class="user-type">
             <radio-group class="radio-group" id="utype" bindchange="radioChange">
               <label class="radio" wx:for="{{usertype}}" wx:key="item.name">
                 <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
               </label>
             </radio-group>
-          </view>
+          </view> -->
         </form>
         <view class="confirm-btn" bindtap="bind">
           <text>确认绑定</text>
