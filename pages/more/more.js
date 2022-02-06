@@ -16,7 +16,6 @@ Page({
     app.wx_request("/api/v1/info/" + wx.getStorageSync('account'), "GET").then(
       function(res) {
         if (res.data && res.data.message === 'success') {
-          console.log(111)
           _this.setData({
             user: {
               'name': res.data.detail.name,
@@ -25,7 +24,6 @@ Page({
               'department_name': res.data.detail.department_name,
             }
           });
-          console.log(_this.data)
         }
       }
     ).catch(err => {

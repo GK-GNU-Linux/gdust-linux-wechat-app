@@ -85,7 +85,7 @@ Page({
       'active.remind': '上滑加载更多',
       'page': 0
     });
-    this.getNewsList();
+    //this.getNewsList();
   },
   onShareAppMessage: function() {
     var id = this.data.share_id

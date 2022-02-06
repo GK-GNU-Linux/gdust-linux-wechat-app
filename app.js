@@ -44,8 +44,8 @@ App({
           }
         });
         if (_this.cache.version !== _this.version) {
-          _this.cache = {};
-          wx.clearStorage();
+          // _this.cache = {};
+          // wx.clearStorage();
         } else {
           _this.session_id = _this.cache.session_id;
           _this.account = _this.cache.account;
@@ -108,31 +108,11 @@ App({
           _this.is_login = true
           console.log("session登陆")
           resolve();
-          // _this.checkCache().then(function () {
-          //   resolve();
-          // })
         }).catch(function(res) {
           reject(res);
         });
       } else if (!_this.is_login) { //有登录信息,并且为初始化程序
         console.log("检查登陆状态")
-        // _this.check_session().then(function() {
-        //   _this.is_login = true
-        //   _this.checkCache().then(function () {
-        //     resolve();
-        //   })
-        // }).catch(function(res) {
-        //   console.log(res)
-        //   _this.session_login().then(function () {
-        //     _this.is_login = true
-        //     console.log("重新登陆")
-        //     _this.checkCache().then(function () {
-        //       resolve();
-        //     })
-        //   }).catch(function(res) {
-        //     console.log(res)
-        //   });
-        // })
       } else {
         resolve();
       }
@@ -176,7 +156,7 @@ App({
           }
         },
         fail: function(res) {
-          _this.showLoadToast("网络出错eeee")
+          _this.showLoadToast("网络出错")
           reject(res);
         }
       });
@@ -227,83 +207,6 @@ App({
   },
   session_login: function() {
     var _this = this;
-    // return new Promise(function(resolve, reject) {
-    //   wx.showNavigationBarLoading();
-    //   wx.login({
-    //     success: function(res) {
-    //       wx.request({
-    //         method: 'POST',
-    //         url: _this.server + '/mini_program/session_login',
-    //         data: {
-    //           code: res.code
-    //         },
-    //         success: function(res) {
-    //           if (res.data && res.data.status === 200) {
-    //             var status = false,
-    //               data = res.data.data;
-    //             //判断缓存是否有更新
-    //             if (_this.cache.version !== _this.version) {
-    //               _this.saveCache('version', _this.version);
-    //               status = true;
-    //             }
-    //             console.log(data.login_require)
-    //             _this.aldstat.sendSession(data.session_id)
-    //             _this.saveCache('session_id', data.session_id);
-    //             _this.session_id = data.session_id;
-    //             if (data.login_require) {
-    //               wx.getSetting({
-    //                 success(res) {
-    //                   if (!res.authSetting['scope.userInfo']) {
-    //                     wx.authorize({
-    //                       scope: 'scope.userInfo',
-    //                       success() {
-    //                         console.log("已取得用户授权")
-    //                         _this.getUserInfo().then(function () {
-    //                           resolve()
-    //                         });
-    //                       },
-    //                       fail() {
-    //                         wx.navigateTo({
-    //                           url: '/pages/authorize/index'
-    //                         });
-    //                       }
-    //                     })
-    //                   } else {
-    //                     _this.getUserInfo().then(function () {
-    //                       resolve()
-    //                     });
-    //                   }
-    //                 }
-    //               })
-
-    //             } else {
-    //               console.log("session登陆成功")
-    //               resolve();
-    //             }
-    //           } else {
-    //             //清除缓存
-    //             if (_this.cache) {
-    //               _this.cache = {};
-    //               wx.clearStorage();
-    //             }
-    //             reject();
-    //           }
-    //         },
-    //         fail: function(res) {
-    //           var status = '';
-    //           // 判断是否有缓存
-    //           console.warn(res);
-    //           _this.g_status = '网络错误';
-    //           console.warn(status);
-    //           reject(res);
-    //         },
-    //         complete: function() {
-    //           wx.hideNavigationBarLoading();
-    //         }
-    //       });
-    //     }
-    //   });
-    // })
     return new Promise(function(resolve, reject) {
       let token = wx.getStorageSync('token') || null
       if (token) {
@@ -311,28 +214,27 @@ App({
         _this.saveCache('account', wx.getStorageSync('account'))
         resolve();
       } else {
-        //reject("请先登录")
-        // wx.showModal({
-        //   title: '提示',
-        //   content: '请先登录后食用qwq',
-        //   success (res) {
-        //     if (res.confirm) {
-        //       setTimeout(function () {
-        //         // 直接跳转回首页
-        //         wx.reLaunch({
-        //           url: '/pages/more/login'
-        //         })
-        //       }, 0)
-        //     } else if (res.cancel) {
-        //       setTimeout(function () {
-        //         // 直接跳转回首页
-        //         wx.reLaunch({
-        //           url: '/pages/index/index'
-        //         })
-        //       }, 0)
-        //     }
-        //   }
-        // })
+        wx.showModal({
+          title: '提示',
+          content: '请先绑定教务系统',
+          success: function (res) {
+            if (res.confirm) {//这里是点击了确定以后
+              setTimeout(function () {
+                // 直接跳转回首页
+                wx.reLaunch({
+                  url: '/pages/more/login'
+                })
+              }, 0)
+            } else {//这里是点击了取消以后
+              setTimeout(function () {
+                // 直接跳转回首页
+                wx.reLaunch({
+                  url: '/pages/index/index'
+                })
+              }, 0)
+            }
+          }
+        })
       }
     })
   },

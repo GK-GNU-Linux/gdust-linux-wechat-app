@@ -46,38 +46,10 @@ Page({
   },
   onLoad: function(options) {
     var _this = this;
-    // app.loginLoad().then(function() {
-    //   _this.getSchoolList().then(function(res) {
-    //     _this.setData({
-    //       remind: ''
-    //     });
-    //   }).catch(function(res) {
-    //     _this.setData({
-    //       remind: res.errMsg
-    //     });
-    //   });
-    // });
     _this.setData({
       remind: ''
     });
   },
-  // getSchoolList: function() {
-  //   var _this = this;
-  //   return new Promise(function(resolve, reject) {
-  //     app.wx_request("/school_sys/school_list").then(
-  //       function(res) {
-  //         if (res.data && res.data.status === 200) {
-  //           _this.setData({
-  //             schools_list: res.data.data
-  //           })
-  //           resolve();
-  //         }
-  //       }
-  //     ).catch(function(res) {
-  //       reject(res);
-  //     })
-  //   })
-  // },
   bind: function() {
     var _this = this;
     if (!_this.data.userid || !_this.data.passwd) {
@@ -95,12 +67,10 @@ Page({
     }
     app.wx_request("/api/v1/account/login", 'POST', data).then(
       function(res) {
-        console.log(1111111)
+        console.log("login=res:",res)
         if (res.data && res.data.message === 'success') {
           wx.setStorageSync('token', "Bearer " + res.data.detail.token);
           wx.setStorageSync('account', res.data.detail.account)
-          console.log("token" + res.data.detail.token)
-          console.log("account" + res.data.detail.account)
           wx.hideLoading()
           wx.showToast({
             title: '绑定成功',
@@ -113,7 +83,6 @@ Page({
               url: '/pages/index/index'
             })
           }, 1000)
-          //console.log(233)
           return
         } else {
           wx.hideToast();
