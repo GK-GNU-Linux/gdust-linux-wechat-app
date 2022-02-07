@@ -390,7 +390,7 @@ Page({
       });
       _this.setData({
         today: today,
-        week: 11,
+        week: week,
         toweek: toweek,
         lessons: lessons,
         dates: dates,
