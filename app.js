@@ -1,6 +1,5 @@
 //app.js
 var mta = require('./utils/mta_analysis.js')
-const ald = require('./utils/ald-stat.js')
 
 App({
   version: 'v2.1.11', //版本号

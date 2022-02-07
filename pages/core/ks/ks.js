@@ -29,7 +29,7 @@ Page({
     var id = this.data.share_id
     return {
       title: this.data.name + '的考试安排',
-      desc: '莞香小喵 - 考试安排',
+      desc: 'e广科 - 考试安排',
       path: `/pages/index/index?r=/pages/core/ks/ks|id:${id}`
     };
   },

@@ -6,7 +6,7 @@ Page({
   data: {
     remind: '加载中',
     _days: ['一', '二', '三', '四', '五', '六', '日'],
-    _weeks: ['第一周', '第二周', '第三周', '第四周', '第五周', '第六周', '第七周', '第八周', '第九周', '第十周', '十一周', '十二周', '十三周', '十四周', '十五周', '十六周', '十七周', '十八周', '十九周', '二十周'],
+    _weeks: ['第一周', '第二周', '第三周', '第四周', '第五周', '第六周', '第七周', '第八周', '第九周', '第十周', '十一周', '十二周', '十三周', '十四周', '十五周', '十六周', '十七周', '十八周', '十九周', '二十周', '二十一周', '二十二周', '二十三周', '二十四周', '二十五周', '二十六周'],
     _time: [ //课程时间与指针位置的映射，{begin:课程开始,end:结束时间,top:指针距开始top格数}
       {
         begin: '0:00',
@@ -104,15 +104,6 @@ Page({
     changeLock: false,
     real_name: null
   },
-  //分享
-  onShareAppMessage: function() {
-    var id = this.data.share_id;
-    return {
-      title: this.data.real_name + '的课表',
-      desc: '莞香小喵 - 课表查询',
-      path: `/pages/index/index?r=/pages/core/kb/kb|id:${id}`
-    };
-  },
   //下拉更新
   onPullDownRefresh: function () {
     var _this = this;
@@ -136,13 +127,6 @@ Page({
       console.log(err)
     })
     
-  },
-  //让分享时自动登录
-  loginHandler: function(options) {
-    var _this = this;
-    // onLoad时获取一次课表
-    var share_id = options.id || '';
-    _this.get_kb(share_id);
   },
   onShow: function() {
     var _this = this;
@@ -402,7 +386,13 @@ Page({
       app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
         function(res) {
           var data = res.data.detail
-          kbRender(data)
+          if (wx.getStorageSync('schedule') === '') {
+            kbRender(data)
+          } else {
+            data = wx.getStorageSync('schedule');
+            kbRender(data)
+            wx.removeStorageSync('schedule')
+          }
         }
       ).catch(err => {
         var course = []

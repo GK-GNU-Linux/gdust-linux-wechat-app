@@ -52,7 +52,7 @@ Page({
       {
         id: 4,
         'type': 'xm',
-        name: '小喵推送',
+        name: 'e广科推送',
         storage: [],
         enabled: {
           guest: true,
@@ -90,8 +90,8 @@ Page({
   onShareAppMessage: function() {
     var id = this.data.share_id
     return {
-      title: '校内资讯 - 莞香小喵',
-      desc: '快来莞香小喵看看校内资讯',
+      title: '校内资讯 - e广科',
+      desc: '快来e广科看看校内资讯',
       path: `pages/news/news`,
       success: function(res) {
         // 分享成功	

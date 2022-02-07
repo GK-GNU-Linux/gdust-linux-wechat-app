@@ -11,7 +11,7 @@ Page({
   //分享
   onShareAppMessage: function () {
     return {
-      title: this.data.book_name + ' - 书籍详情 - 莞香小喵',
+      title: this.data.book_name + ' - 书籍详情 - e广科',
       desc: '广东科技学院唯一的小程序',
       path: '/pages/index/index?r=/pages/core/zs/detail/detail|url:' + this.data.book_url
     };

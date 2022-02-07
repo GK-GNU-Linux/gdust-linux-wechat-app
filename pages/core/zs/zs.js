@@ -68,7 +68,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '广东科技学院图书馆找书',
-      desc: '莞香小喵 - 我要找书',
+      desc: 'e广科 - 我要找书',
       path: `/pages/index/index?r=/pages/core/zs/zs`
     };
   },

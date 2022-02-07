@@ -83,7 +83,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '广东科技学院空教室',
-      desc: '莞香小喵 - 空教室查询',
+      desc: 'e广科 - 空教室查询',
       path: `/pages/index/index?r=/pages/core/kjs/kjs`
     };
   },

@@ -19,7 +19,7 @@ module.exports.ipage = {
       'jw': '教务公告',
       'xy': '学院新闻',
       'xb': '系部动态',
-      'xm': '小喵推送',
+      'xm': 'e广科推送',
       'new': '新闻中心'
     },
     mp_article: false
@@ -29,7 +29,7 @@ module.exports.ipage = {
     var _this = this;
     return {
       title: _this.data.title,
-      desc: '莞香小喵 - 资讯详情',
+      desc: 'e广科 - 资讯详情',
       path: 'pages/news/' + _this.data.type + '/' + _this.data.type + '_detail?type=' + _this.data.type + '&url=' + _this.data.url
     }
   },

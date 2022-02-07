@@ -31,30 +31,26 @@ Page({
     })
   },
   refreshSchedule: function() {
-    // wx.showToast({
-    //   title: '刷新中',
-    //   icon: 'loading',
-    //   duration: 1500
-    // });
-    wx.hideLoading()
-      wx.showToast({
-        title: '刷新成功',
-        icon: 'success',
-        duration: 1500
-      });
-    // app.wx_request("/school_sys/refresh_schedule", 'GET').then(
-    //   function (res) {
-    //     if (res.data && res.data.status === 200) {
-    //       wx.hideLoading()
-    //       wx.showToast({
-    //         title: '刷新成功',
-    //         icon: 'success',
-    //         duration: 1500
-    //       });
-    //     }
-    //   }
-    // ).catch(function (res) {
-    //   app.showErrorModal(res.errMsg, '刷新失败');
-    // })
+    wx.showToast({
+      title: '刷新中',
+      icon: 'loading',
+      duration: 1500
+    });
+      app.loginLoad().then(function() {
+        app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(function(res) {
+          if (res.data && res.data.message === 'success') {
+            var data = res.data.detail
+            wx.setStorageSync('schedule', data)
+            wx.hideLoading()
+            wx.showToast({
+              title: '刷新成功',
+              icon: 'success',
+              duration: 1500
+            });
+          }
+        }).catch(err => {
+          app.showErrorModal(err.message, '刷新失败');
+        })
+      })
   }
 });
