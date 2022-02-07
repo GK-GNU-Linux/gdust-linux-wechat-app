@@ -158,10 +158,8 @@ Page({
   onPullDownRefresh: function() {
     var _this = this;
     app.loginLoad().then(function() {
-      _this.getSchoolInfo().then(function() {
-        _this.initButton();
-        _this.getCardData();
-      })
+      _this.initButton();
+      //_this.getCardData();
     }).catch(function(e) {
       console.log(e)
     });
