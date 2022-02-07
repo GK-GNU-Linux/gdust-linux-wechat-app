@@ -159,6 +159,12 @@ Page({
     var _this = this;
     app.loginLoad().then(function() {
       _this.initButton();
+      _this.getScheduleCard()
+      wx.showToast({
+        title: '刷新成功',
+        icon: 'success',
+        duration: 1000
+      });
       //_this.getCardData();
     }).catch(function(e) {
       console.log(e)
