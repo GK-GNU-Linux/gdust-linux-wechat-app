@@ -189,9 +189,13 @@ Page({
         title: '免责声明',
         content: content,
         confirmColor: "#1f7bff",
-        showCancel: false
-      });
-      app.saveCache('mzsm', 1);
+        showCancel: false,
+        success:()=>{
+          app.saveCache('mzsm', 1);
+          app.session_login()
+        }
+      }
+      );
     }
   },
   initButton: function() {
