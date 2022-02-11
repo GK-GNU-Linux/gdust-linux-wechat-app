@@ -22,7 +22,7 @@
         <text class="desc-list-item">e广科</text>
         <text class="desc-list-item">Github：https://github.com/GK-GNU-Linux/gdust-linux-wechat-app</text>
       </view>
-      <text class="desc-content">e广科，前端源码fork自广科e广科微信小程序，修改并适配e广科后端程序，由e广科团队开发并运营的微信小程序。</text>
+      <text class="desc-content">e广科，前端源码fork自广科小喵微信小程序，修改并适配e广科后端程序，由e广科团队开发并运营的微信小程序。</text>
       <text class="desc-content">提供多元化的校园功能，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
     <text class="desc-title">免责声明</text>
     <view class="desc-list">
