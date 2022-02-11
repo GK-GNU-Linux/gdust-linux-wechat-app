@@ -65,12 +65,13 @@ Page({
       account: account,
       password: _this.data.passwd
     }
-    app.wx_request("/api/v1/account/login", 'POST', data).then(
+    app.wx_request("/api/v1/account/bind", 'POST', data).then(
       function(res) {
         console.log("login=res:",res)
         if (res.data && res.data.message === 'success') {
-          wx.setStorageSync('token', "Bearer " + res.data.detail.token);
+          wx.setStorageSync('token',res.data.detail.token);
           wx.setStorageSync('account', res.data.detail.account)
+          wx.setStorageSync('openid', res.data.detail.openid)
           wx.hideLoading()
           wx.showToast({
             title: '绑定成功',
@@ -87,7 +88,7 @@ Page({
         } else {
           wx.hideToast();
           wx.hideLoading()
-          app.showErrorModal(res.data.msg, '绑定失败');
+          app.showErrorModal(res.data.message, '绑定失败');
         }
       }
     ).catch(function(res) {
