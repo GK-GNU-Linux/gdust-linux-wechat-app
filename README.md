@@ -1,30 +1,32 @@
-e广科
+
+e广科(easyGK)
 ===
-官网：http://www.gxgk.cc
+<!-- 官网：http://www.gxgk.cc -->
 
 > **e广科** 
 是一款**微信小程序**
 > 
-> 前端源码fork自重庆邮电大学[we重邮微信小程序](https://github.com/mcc108/wecqupt)，遵守AGPLV3协议开源，已取得作者许可。
-后端由**莞香广科团队**自主开发的[广科e广科公众号后端程序](https://github.com/paicha/gxgk-wechat-server)
+
+> 前端源码fork自莞香广科团队的[莞香广科微信小程序](https://github.com/gxgk/gxgk-wechat-app)，遵守AGPLV3协议开源，已取得作者许可。
+后端由**广科Linux协会**自主开发的e广科公众号后端程序(闭源)
 > 
-> 同**广科e广科微信公众号**服务于**广东科技学院**，提供多元化的校园功能，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。
+> 同**e广科公众号**服务于**广东科技学院**，提供多元化的校园功能，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。
 
 ---
-
+<!-- 
 <img src="http://qn.gxgk.cc/gh_5c6a6a670724_344.jpg" alt="二维码" width="50%">
 <img src="http://mmbiz.qpic.cn/mmbiz_jpg/Lvb91u9VuuhWXc3utSurMnIBPgITjIibtia2RjyhMAricPQcosc6BBPzwuPIKiaraNyz1apOQVKKC86oOkXGeZA3lg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1" alt="预告Banner" width="50%">
 <img src="http://mmbiz.qpic.cn/mmbiz_jpg/Lvb91u9Vuug9AgxPAgM9Kak2zIO8mxKib4GYNibJYQPacw5AFicIGRNAzUP8173BI0JfEoibYSTEgxXMFqcf1pNAGQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1" alt="首页" width="50%">
 
 ---
-
+ -->
 ## 开源许可证 License AGPLv3
  
 请认真阅读并遵守以下开源协议
 
 `AGPLv3` [GNU Affero General Public License v3.0](https://github.com/lanshan-studio/wecqupt/blob/master/LICENSE)
 
-Ps: 维护者为专业后端，业余前端，如有错漏敬请指正，目前维护人员均已毕业，后续维护....
+Ps: 维护者为专业后端，业余前端，如有错漏敬请指正
 
 强烈谴责本校《广科微生活》小程序不遵守AGPLv3，闭源同时Copy该项目借阅信息与我要找书等功能代码。仅此告知，望自珍重。
 
@@ -37,7 +39,7 @@ Ps: 维护者为专业后端，业余前端，如有错漏敬请指正，目前�
 > X: 主版本号, Y: 次版本号, Z: 修订号
 > 
 > 修饰后缀词(可选) - alpha: 内测版, beta: 公测版, 无(默认): 正式版
-
+<!-- 
 ### v2.0.0 正式版
 * 2018.08.25 发布
 * 功能重构
@@ -98,16 +100,16 @@ Ps: 维护者为专业后端，业余前端，如有错漏敬请指正，目前�
 ### v0.0.2 公测版
 * 2017.02.06  发布
 * 提交腾讯审核版本
-
+ -->
 ### v0.0.1 内测体验版
-* 2017.02.04 [发布预告](http://mp.weixin.qq.com/s/HGxbRmTZaFqwZ3NqBEkeSw)
+- 提交腾讯审核版本
 
 ---
 
 ## 分支管理
 
 ```
-gxgk-wechat-app
+gdust-linux-wechat-app
   ├─ master       // 默认分支（开发测试版本所用分支）
   ├─ stable       // 稳定分支（正式版本所用分支；高级保护分支，只允许管理员操作，通常由master分支-Merge而来）
   └─ [other]      // 其他开发分支（只允许该项目Collaborators创建及push分支）
@@ -119,3 +121,5 @@ gxgk-wechat-app
 > @ 重庆邮电大学 - 蓝山工作室 https://lanshan.studio
 
 > @ 广东科技学院 - 莞香广科团队 http://www.gxgk.cc
+
+> @ 广东科技学院 - 广科Linux协会 
