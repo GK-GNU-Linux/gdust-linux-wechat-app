@@ -14,7 +14,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: '莞香小喵微信小程序',
+      title: 'e广科',
       desc: '分享你的大学生活',
       path: '/pages/more/about'
     }

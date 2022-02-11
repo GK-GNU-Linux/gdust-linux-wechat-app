@@ -149,8 +149,8 @@ Page({
   //分享
   onShareAppMessage: function() {
     return {
-      title: '莞香小喵',
-      desc: '辅助工具',
+      title: 'e广科',
+      desc: '查课小助手',
       path: '/pages/index/index'
     };
   },
@@ -163,9 +163,9 @@ Page({
       wx.showToast({
         title: '刷新成功',
         icon: 'success',
-        duration: 1000
+        duration: 1500
       });
-      //_this.getCardData();
+      wx.stopPullDownRefresh();
     }).catch(function(e) {
       console.log(e)
     });
@@ -193,35 +193,6 @@ Page({
       });
       app.saveCache('mzsm', 1);
     }
-  },
-  getSchoolInfo: function() {
-    var _this = this;
-    return new Promise(function(resolve, reject) {
-      //刷新缓存
-      app.initSchoolUser().then(function(status) {
-        resolve();
-      }).catch(function(res) {
-        if (res.data.status === 100) {
-          _this.setData({
-            'remind': '未绑定'
-          });
-          wx.navigateTo({
-            url: '/pages/more/login'
-          });
-        } else {
-          app.showErrorModal(res.data.msg, '获取学校信息出错');
-          for (var i = 0, len = _this.data.core.length; i < len; i++) {
-            _this.data.core[i].disabled = true;
-          }
-          _this.setData({
-            offline: true,
-            'remind': res.data.msg,
-            core: _this.data.core
-          });
-        }
-        reject(res);
-      });
-    })
   },
   initButton: function() {
     var _this = this;

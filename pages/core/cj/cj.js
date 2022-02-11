@@ -22,7 +22,7 @@ Page({
     var id = this.data.share_id
     return {
       title: this.data.real_name + '的成绩单',
-      desc: '快来莞香小喵查询你的期末成绩单',
+      desc: '快来e广科查询你的期末成绩单',
       path: `/pages/index/index?r=/pages/core/cj/cj|id:${id}`,
       success: function(res) {
         // 分享成功

@@ -1,3 +1,4 @@
+
 e广科(easyGK)
 ===
 <!-- 官网：http://www.gxgk.cc -->
@@ -5,6 +6,7 @@ e广科(easyGK)
 > **e广科** 
 是一款**微信小程序**
 > 
+
 > 前端源码fork自莞香广科团队的[莞香广科微信小程序](https://github.com/gxgk/gxgk-wechat-app)，遵守AGPLV3协议开源，已取得作者许可。
 后端由**广科Linux协会**自主开发的e广科公众号后端程序(闭源)
 > 
