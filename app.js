@@ -9,7 +9,8 @@ App({
   is_login: false,
   redirect: false,
   account: 0,
-  onLaunch: function(options) {
+  onLaunch: function (options) {
+    const that = this
     //console.log(options)
     // 如果有新的版本强制更新版本
     if (wx.getUpdateManager) {
@@ -35,7 +36,7 @@ App({
       var data = wx.getStorageInfoSync();
       //console.log(data)
       if (data && data.keys.length) {
-        data.keys.forEach(function(key) {
+        data.keys.forEach(function (key) {
           var value = wx.getStorageSync(key);
           //console.log(value)
           if (value) {
@@ -55,7 +56,7 @@ App({
     }
   },
   //保存缓存
-  saveCache: function(key, value) {
+  saveCache: function (key, value) {
     if (!key || !value) {
       return;
     }
@@ -67,7 +68,7 @@ App({
     });
   },
   //清除缓存
-  removeCache: function(key) {
+  removeCache: function (key) {
     if (!key) {
       return;
     }
@@ -78,15 +79,14 @@ App({
     });
   },
   //后台切换至前台时
-  onShow: function() {
-  },
-  checkCache: function() {
+  onShow: function () {},
+  checkCache: function () {
     var _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       if (_this.util.isEmptyObject(_this.user.wx_info)) {
-        _this.initWechatUser().then(function() {
+        _this.initWechatUser().then(function () {
           if (_this.util.isEmptyObject(_this.user.auth_user)) {
-            _this.initSchoolUser().then(function() {
+            _this.initSchoolUser().then(function () {
               resolve();
             }).catch(resolve)
           } else {
@@ -99,35 +99,50 @@ App({
     })
   },
   //判断是否有登录信息，让分享时自动登录
-  loginLoad: function() {
+  loginLoad: function () {
     var _this = this;
-    return new Promise(function(resolve, reject) {
-      if (!_this.session_id) { //无登录信息
-        _this.session_login().then(function() {
-          _this.is_login = true
-          console.log("session登陆")
-          resolve();
-        }).catch(function(res) {
-          reject(res);
-        });
-      } else if (!_this.is_login) { //有登录信息,并且为初始化程序
-        console.log("检查登陆状态")
-      } else {
-        resolve();
-      }
+    if(wx.getStorageSync('account')) {
+      return new Promise(()=>{})
+    }
+    return new Promise((resolve,rej)=>{
+      wx.login({
+        success(res) {
+          console.log('res: ', res);
+          if (res.code) {
+            //发起网络请求
+            _this.wx_request('/api/v1/account/login/' + res.code).then(resp => {
+              let payload = resp.data.detail;
+              wx.setStorageSync('token', payload.token)
+              wx.setStorageSync('account', payload.account)
+              wx.setStorageSync('openid', payload.openid)
+              if (payload.account === null) {
+                // 跳转绑定
+                _this.session_login().then(()=>{
+                  resolve()
+                });
+              } else {
+                console.log('ok');
+              }
+            });
+          } else {
+            console.log('登录失败！' + res.errMsg);
+            rej('登录失败！' + res.errMsg)
+          }
+        }
+      })
     })
   },
-  wx_request: function(enpoint, method, data) {
+  wx_request: function (enpoint, method, data) {
     // 全局网络请求封装
     var _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       const session_id = wx.getStorageSync('token') || null
       //console.log(session_id)
       let header = {}
       if (session_id) {
         header = {
           'content-type': 'application/json',
-          'Authorization': session_id
+          'Authorization':  "Bearer " + session_id
         }
       }
       wx.request({
@@ -135,7 +150,7 @@ App({
         data: data || '',
         method: method || 'GET',
         header: header,
-        success: function(res) {
+        success: function (res) {
           if (res.data.status == 10000) {
             console.log('重新登录')
             _this.session_login().then(function () {
@@ -154,25 +169,25 @@ App({
             resolve(res);
           }
         },
-        fail: function(res) {
+        fail: function (res) {
           _this.showLoadToast("网络出错")
           reject(res);
         }
       });
     })
   },
-  check_session: function() {
+  check_session: function () {
     var _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       wx.checkSession({
-        success: function() {
+        success: function () {
           wx.request({
             url: _this.server + '/mini_program/check_session',
             data: {
               'session_id': _this.session_id
             },
             method: "POST",
-            success: function(res) {
+            success: function (res) {
               if (!res.data) {
                 // 网络出错
                 _this.showLoadToast("服务器出错")
@@ -182,7 +197,7 @@ App({
                   console.log("session状态有效")
                   resolve();
                 } else if (res.data.status == 403) {
-                  _this.session_login().then(function() {
+                  _this.session_login().then(function () {
                     resolve();
                   }).catch(function (res) {
                     console.log(res);
@@ -191,7 +206,7 @@ App({
                 }
               }
             },
-            fail: function(res) {
+            fail: function (res) {
               _this.showLoadToast("网络出错233")
               reject(res);
             }
@@ -204,27 +219,33 @@ App({
       })
     });
   },
-  session_login: function() {
+  session_login: function () {
     var _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
+      let account = wx.getStorageSync('account') || null
       let token = wx.getStorageSync('token') || null
-      if (token) {
+      let mzsm = wx.getStorageSync('mzsm') || null
+      if(mzsm == null) {
+        return
+      }
+      if (account && token) {
         _this.saveCache('session_id', token)
         _this.saveCache('account', wx.getStorageSync('account'))
         resolve();
       } else {
         wx.showModal({
           title: '提示',
-          content: '请先绑定教务系统',
+          content: '你好鸭，请先绑定教务系统哦~',
+          showCancel: false,
           success: function (res) {
-            if (res.confirm) {//这里是点击了确定以后
+            if (res.confirm) { //这里是点击了确定以后
               setTimeout(function () {
                 // 直接跳转回首页
                 wx.reLaunch({
                   url: '/pages/more/login'
                 })
               }, 0)
-            } else {//这里是点击了取消以后
+            } else { //这里是点击了取消以后
               setTimeout(function () {
                 // 直接跳转回首页
                 wx.reLaunch({
@@ -237,13 +258,13 @@ App({
       }
     })
   },
-  getUserInfo: function() {
+  getUserInfo: function () {
     var _this = this;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       //获取微信用户信息
       wx.getUserInfo({
         withCredentials: true,
-        success: function(res) {
+        success: function (res) {
           var info = res;
           // _this.user.wxinfo = info.userInfo;
           if (!info.encryptedData || !info.iv) {
@@ -260,25 +281,25 @@ App({
               rawData: info.rawData,
               signature: info.signature
             },
-            success: function(res) {
+            success: function (res) {
               if (res.data && res.data.status === 200) {
                 console.log("获取用户信息成功")
                 _this.checkCache().then(function () {
                   resolve(res);
-                }).catch(function (e){
+                }).catch(function (e) {
                   console.log(e)
                 })
               } else {
                 _this.showLoadToast("服务器异常")
               }
             },
-            fail: function(res) {
+            fail: function (res) {
               _this.showLoadToast("网络出错")
             },
-            complete: function() {}
+            complete: function () {}
           });
         },
-        fail: function(res) {
+        fail: function (res) {
           // 提示用户授权页面
           _this.g_status = '未授权';
           wx.navigateTo({
@@ -289,11 +310,11 @@ App({
       });
     })
   },
-  initWechatUser: function() {
+  initWechatUser: function () {
     // 获取必要的微信信息
     var _this = this;
-    return new Promise(function(resolve, reject) {
-      _this.wx_request("/mini_program/wechat_user").then(function(res) {
+    return new Promise(function (resolve, reject) {
+      _this.wx_request("/mini_program/wechat_user").then(function (res) {
         if (res.data.status === 200) {
           _this.user.wx_info = res.data.data;
           _this.saveCache('wx_info', res.data.data);
@@ -301,16 +322,16 @@ App({
         } else {
           reject(res);
         }
-      }).catch(function(res) {
+      }).catch(function (res) {
         reject(res);
       })
     })
   },
-  initSchoolUser: function() {
+  initSchoolUser: function () {
     // 获取必要的绑定信息
     var _this = this;
-    return new Promise(function(resolve, reject) {
-      _this.wx_request("/school_sys/user_info").then(function(res) {
+    return new Promise(function (resolve, reject) {
+      _this.wx_request("/school_sys/user_info").then(function (res) {
         if (res.data.status === 200) {
           var data = res.data.data;
           _this.user.auth_user = data.auth_user;
@@ -326,12 +347,12 @@ App({
         } else {
           reject(res);
         }
-      }).catch(function(res) {
+      }).catch(function (res) {
         reject(res);
       })
     })
   },
-  showErrorModal: function(content, title) {
+  showErrorModal: function (content, title) {
     wx.showModal({
       title: title || '加载失败',
       content: content || '未知错误',
@@ -339,7 +360,7 @@ App({
       showCancel: false
     });
   },
-  showLoadToast: function(title, duration) {
+  showLoadToast: function (title, duration) {
     wx.showToast({
       title: title || '加载中',
       icon: 'loading',
