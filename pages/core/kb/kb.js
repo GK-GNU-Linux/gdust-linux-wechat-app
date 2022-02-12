@@ -108,13 +108,14 @@ Page({
   onPullDownRefresh: function () {
     var _this = this;
     app.loginLoad().then(function () {
-      _this.get_kb()
-      wx.showToast({
-        title: '更新课表成功',
-        icon: 'success',
-        duration: 1500
-      });
-      wx.stopPullDownRefresh();
+      new Promise(_this.get_kb).then((res)=>{
+        wx.showToast({
+          title: '更新课表成功',
+          icon:'none',
+          duration: 1500
+        });
+        wx.stopPullDownRefresh();
+      })
     }).catch(function (e) {
       console.log(e)
     });
@@ -316,7 +317,7 @@ Page({
     }
 
   },
-  get_kb: function(share_id) {
+  get_kb: function(resolve,share_id) {
     //数组去除指定值
     function removeByValue(array, val) {
       for (var i = 0, len = array.length; i < len; i++) {
@@ -386,6 +387,10 @@ Page({
     //获取课表
       app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
         function(res) {
+          // 获取课表完成
+          if(resolve) {
+            resolve()
+          }
           var data = res.data.detail
           if (wx.getStorageSync('schedule') === '') {
             kbRender(data)

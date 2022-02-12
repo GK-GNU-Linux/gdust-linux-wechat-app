@@ -44,7 +44,7 @@ Page({
             wx.hideLoading()
             wx.showToast({
               title: '刷新成功',
-              icon: 'success',
+              icon:'none',
               duration: 1500
             });
           }

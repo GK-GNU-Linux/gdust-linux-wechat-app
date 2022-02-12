@@ -162,7 +162,7 @@ Page({
       _this.getScheduleCard()
       wx.showToast({
         title: '刷新成功',
-        icon: 'success',
+        icon:'none',
         duration: 1500
       });
       wx.stopPullDownRefresh();
