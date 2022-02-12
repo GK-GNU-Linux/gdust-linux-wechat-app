@@ -68,7 +68,7 @@ Page({
     app.wx_request("/api/v1/account/bind", 'POST', data).then(
       function(res) {
         console.log("login=res:",res)
-        if (res.data && res.data.message === 'success') {
+        if (res.data && res.data.message === "账号绑定成功") {
           wx.setStorageSync('token',res.data.detail.token);
           wx.setStorageSync('account', res.data.detail.account)
           wx.setStorageSync('openid', res.data.detail.openid)

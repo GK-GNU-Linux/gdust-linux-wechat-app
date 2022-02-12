@@ -342,6 +342,7 @@ Page({
     }
     //课表渲染
     function kbRender(_data) {
+      console.log(_data)
       //console.log(_data.today)
       _this.data.real_name = _data.real_name
       var colors = ['red', 'green', 'purple', 'yellow'];

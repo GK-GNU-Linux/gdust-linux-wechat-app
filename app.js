@@ -102,7 +102,9 @@ App({
   loginLoad: function () {
     var _this = this;
     if(wx.getStorageSync('account')) {
-      return new Promise(()=>{})
+      return new Promise((resolve,rej)=>{
+        resolve()
+      })
     }
     return new Promise((resolve,rej)=>{
       wx.login({

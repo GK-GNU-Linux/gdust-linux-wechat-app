@@ -315,6 +315,7 @@ Page({
       });
     }
     app.loginLoad().then(function() {
+      console.log('加载今日课表')
       app.wx_request("/api/v1/schedule/today/" + wx.getStorageSync('account'), "GET").then(
         function(res) {
           var data = res.data.detail
