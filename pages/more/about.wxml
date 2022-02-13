@@ -8,7 +8,7 @@
     <view class="version">
       <view class="version-title">
         <text class="title-name">e广科</text>
-        <text class="version-text">v0.0.1</text>
+        <text class="version-text">v0.2.0</text>
         <text class="version-text">正式版</text>
       </view>
       <view bindtap="toggleLog">

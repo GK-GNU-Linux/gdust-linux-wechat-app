@@ -123,7 +123,8 @@ App({
                   resolve()
                 });
               } else {
-                console.log('ok');
+                resolve()
+                console.log('loginLoad:OK');
               }
             });
           } else {
@@ -153,9 +154,12 @@ App({
         method: method || 'GET',
         header: header,
         success: function (res) {
-          if (res.data.status == 10000) {
+          console.log(res)
+          if (res.statusCode == 401) {
             console.log('重新登录')
-            _this.session_login().then(function () {
+            wx.clearStorage()
+            wx.setStorageSync('mzsm', 1)
+            _this.loginLoad().then(function () {
               // 成功回调
               _this.wx_request(enpoint, method, data).then(function (res) {
                 resolve(res);
