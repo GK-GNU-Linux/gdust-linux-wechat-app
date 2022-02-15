@@ -108,7 +108,7 @@ Page({
   onPullDownRefresh: function () {
     var _this = this;
     app.loginLoad().then(function () {
-      new Promise(_this.get_kb).then((res)=>{
+      new Promise(_this.update_kb).then((res)=>{
         wx.showToast({
           title: '更新课表成功',
           icon:'none',
@@ -386,6 +386,101 @@ Page({
     wx.showNavigationBarLoading();
     //获取课表
       app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
+        function(res) {
+          // 获取课表完成
+          if(resolve) {
+            resolve()
+          }
+          var data = res.data.detail
+          if (wx.getStorageSync('schedule') === '') {
+            kbRender(data)
+          } else {
+            data = wx.getStorageSync('schedule');
+            kbRender(data)
+            wx.removeStorageSync('schedule')
+          }
+        }
+      ).catch(err => {
+        var course = []
+        kbRender(course)
+        console.log("error",err)
+      })
+      wx.hideNavigationBarLoading();
+  },
+  /**
+   * 更新课表
+   * @param {*} resolve 
+   * @param {*} share_id 
+   */
+  update_kb: function(resolve,share_id) {
+    //数组去除指定值
+    function removeByValue(array, val) {
+      for (var i = 0, len = array.length; i < len; i++) {
+        if (array[i] == val) {
+          array.splice(i, 1);
+          break;
+        }
+      }
+      return array;
+    }
+    // 根据获取课表
+    var _this = this,
+      data = {
+        week_num: _this.data.week,
+        weekday: '',
+      };
+    if (app.user.is_teacher) {
+      data.type = 'teacher';
+    }
+    //判断并读取缓存
+    if (app.cache.kb_all && !share_id) {
+      kbRender(app.cache.kb_all);
+    }
+    //课表渲染
+    function kbRender(_data) {
+      console.log(_data)
+      //console.log(_data.today)
+      _this.data.real_name = _data.real_name
+      var colors = ['red', 'green', 'purple', 'yellow'];
+      var today = parseInt(_data.today); //星期几，0周日,1周一
+      today = today === 0 ? 6 : today - 1; //0周一,1周二...6周日
+      var week = _data.week; //当前周
+      var toweek = week;
+      if (today === 6) {
+        toweek = toweek - 1;
+        if (week !=1){
+          week = week - 1;
+        }
+      }
+      var lessons = _data.lessons;
+      //各周日期计算
+      var nowD = new Date(),
+        nowMonth = nowD.getMonth() + 1,
+        nowDate = nowD.getDate();
+      var dates = _this.data._weeks.slice(0); //0:第1周,1:第2周,..19:第20周
+      dates = dates.map(function(e, m) {
+        var idates = _this.data._days.slice(0); //0:周一,1:周二,..6:周日
+        idates = idates.map(function(e, i) {
+          var d = (m === (week - 1) && i === today) ? nowD : new Date(nowD.getFullYear(), nowD.getMonth(), nowD.getDate() - ((week - 1 - m) * 7 + (today - i)));
+          return {
+            month: d.getMonth() + 1,
+            date: d.getDate()
+          }
+        });
+        return idates;
+      });
+      _this.setData({
+        today: today,
+        week: week,
+        toweek: toweek,
+        lessons: lessons,
+        dates: dates,
+        remind: ''
+      });
+    }
+    wx.showNavigationBarLoading();
+    //获取课表
+      app.wx_request("/api/v1/schedule/update", "GET").then(
         function(res) {
           // 获取课表完成
           if(resolve) {

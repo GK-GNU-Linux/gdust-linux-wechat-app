@@ -21,7 +21,8 @@
 
 .main-box {
   position: relative;
-  top: -60rpx;
+  /* top: -60rpx; */
+  top: 10px;
   margin-bottom: -30rpx;
 }
 
