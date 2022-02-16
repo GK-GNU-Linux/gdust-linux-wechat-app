@@ -24,10 +24,10 @@
       </view>
     </view>
     <view class="more-info">
-      <view bindtap="refreshSchedule" class="more-info-btn">
+      <!-- <view bindtap="refreshSchedule" class="more-info-btn">
           <image class="btn-icon" src="/images/more/setting.png"></image>
           <text class="btn-text">刷新课表</text>
-        </view>
+        </view> -->
         <button style="background-color: none;" open-type="feedback">
           <view class="more-info-btn" >
             <image class="btn-icon" src="/images/more/issue.png"></image>

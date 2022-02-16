@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -14,6 +15,20 @@
         {
           "name": "个人界面",
           "pathName": "pages/more/more",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "成绩页面",
+          "pathName": "pages/core/cj/cj",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "关于界面",
+          "pathName": "pages/more/about",
           "query": "",
           "scene": null,
           "launchMode": "default"

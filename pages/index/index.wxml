@@ -83,6 +83,15 @@
         </view>
       </navigator>
     </view>
+    <view class="content-box">
+        <view class="tb">
+          <text class="main-title">系统公告</text>
+          <text class="more">MORE ></text>
+        </view>
+        <view class="ykt-content">
+        <view style="margin: 0px 20px;">欢迎使用e广科，e广科是一款丰富校园生活的小程序，教务系统每晚8点钟关闭，期间小程序将无法登录以及无法刷新课表。如有建议和异常欢迎您反馈，我们将会第一时间处理。</view>
+        </view>
+    </view>
     <view wx:if="{{card.jy.show}}" class="content-box-library">
       <view class="current-type">
         <text class="yuan-dian"></text>

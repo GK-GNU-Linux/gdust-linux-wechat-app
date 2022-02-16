@@ -496,8 +496,6 @@ Page({
           }
         }
       ).catch(err => {
-        var course = []
-        kbRender(course)
         console.log("error",err)
       })
       wx.hideNavigationBarLoading();

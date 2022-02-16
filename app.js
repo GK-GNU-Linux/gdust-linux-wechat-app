@@ -154,6 +154,13 @@ App({
         method: method || 'GET',
         header: header,
         success: function (res) {
+          if(res.data.code == 500) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.message,
+            })
+            reject()
+          }
           console.log(res)
           if (res.statusCode == 401) {
             console.log('重新登录')

@@ -12,8 +12,8 @@
     <view class="cj-header">
       <view class="cj-text">
         <text class="cj-header-title">成绩查询</text>
-        <text class="cj-header-info">学号：{{account}}</text>
-        <text class="cj-header-info">姓名：{{real_name}}</text>
+        <!-- <text class="cj-header-info">学号：{{account}}</text>
+        <text class="cj-header-info">姓名：{{real_name}}</text> -->
       </view>
       <image class="cj-bg" src="/images/core/cj.png"></image>
     </view>
@@ -25,6 +25,8 @@
           </view>
         </view>
         <view class="cj-grade-info">
+        </view>
+        <!-- <view class="cj-grade-info">
           <view class="cj-grade-jd">
             <text class="cj-grade-jd-num">{{rank.avgGpa==null? '暂无':rank.avgGpa}}</text>
             <text>学期绩点</text>
@@ -37,15 +39,16 @@
             <text class="cj-grade-bj-num">{{rank.credits ? rank.credits: '暂无'}}</text>
             <text>学期总学分</text>
           </view>
-        </view>
+        </view> -->
       </view>
       <view class="cj-info-box">
         <view class="cj-info" wx:for="{{cjInfo}}" wx:key="courseid">
           <text class="cj-info-name">{{item.lesson_name}}</text>
           <view class="cj-info-socre-box">
-            <text class="cj-info-socre">平时分：{{item.pscj ? item.pscj: '暂无'}}</text>
+            <text class="cj-info-socre">学分：{{item.credit ? item.credit: '暂无'}}</text>
             <text class="cj-info-socre">|</text>
-            <text class="cj-info-socre"> 卷面分：{{item.qmcj ? item.qmcj: '暂无'}}</text>
+            <text class="cj-info-socre"> 绩点：{{item.grade_point ? item.grade_point: '暂无'}}</text>
+            <!-- <text class="cj-info-socre"> 卷面分：{{item.qmcj ? item.qmcj: '暂无'}}</text> -->
             <text class="cj-info-socre">|</text>
             <text class="cj-info-socre{{item.score < 60?'-red':''}}">综合成绩：{{item.score}}</text>
           </view>
@@ -65,4 +68,4 @@
     </view>
   </block>
 </view>
-<ad unit-id="adunit-d2939165cbf1b7dc"></ad>
+<!-- <ad unit-id="adunit-d2939165cbf1b7dc"></ad> -->
