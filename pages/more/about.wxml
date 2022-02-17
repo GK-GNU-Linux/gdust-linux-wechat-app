@@ -1,9 +1,9 @@
 <!--about.wxml-->
 <view class="container">
-  <view class="header">
+  <!-- <view class="header">
     <view class="black-cover"></view>
     <image class="about_bg" src="/images/more/about_bg.jpg"></image>
-  </view>
+  </view> -->
   <view class="content">
     <view class="version">
       <view class="version-title">
