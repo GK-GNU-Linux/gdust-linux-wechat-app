@@ -1,2 +1,6 @@
 <!--pages/core/eat/eat.wxml-->
-<text>pages/core/eat/eat.wxml</text>
+
+<view class="flex-col ai-center jc-center p-20">
+  <view class="title text-md">今天吃什么鸭？</view>
+  <!-- <web-view src="https://egk.diyxi.top"></web-view> -->
+</view>

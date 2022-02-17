@@ -30,6 +30,13 @@
           "name": "关于界面",
           "pathName": "pages/more/about",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "吃什么鸭界面",
+          "pathName": "pages/core/eat/eat",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }
