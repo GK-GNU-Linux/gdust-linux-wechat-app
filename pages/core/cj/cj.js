@@ -36,6 +36,10 @@ Page({
   onPullDownRefresh: function() {
     var _this = this;
     _this.getData(_this.data.share_id);
+    wx.showToast({
+      icon: 'none',
+      title: '更新中',
+    })
   },
   onLoad: function(options) {
     var _this = this;
@@ -68,36 +72,14 @@ Page({
   },
   getData: function() { //share_id
     var _this = this;
-    app.wx_request("/api/v1/score/2021/1", "GET").then(
+    // wx.getStorageSync('account')
+    app.wx_request("/api/v1/score/" + wx.getStorageSync('account'), "GET").then(
       function(res) {
         if (res.data && res.data.message === 'success') {
-          console.log(res.data.detail)
-          var data = {
-            "account": "2019123456",
-            "real_name": "小明",
-            "year": 2021,
-            "term":1,
-            "score": [
-              {
-                "lesson_name": "课程名-1",
-                "pscj": 43, //平时分
-                "qmcj": 66, //卷面分
-                "score": 59
-              },
-              {
-                "lesson_name": "课程名-2",
-                "pscj": 43, //平时分
-                "qmcj": 66, //卷面分
-                "score": 66
-              },
-            ],
-            "rank": {
-                "avgGpa": 233.3,
-                "class_rank": 1,
-                "credits": 1234
-            }
-          }
-          _this.cjRender(data);
+          _this.makeData(res.data.detail).then(res=>{
+            _this.cjRender(res);
+          })
+
         }
       }
     )
@@ -143,5 +125,38 @@ Page({
     //   wx.hideNavigationBarLoading();
     //   wx.stopPullDownRefresh();
     // });
+  },
+  /**
+   * 制作适合课表显示的数据
+   * @param {*} params 
+   */
+  makeData: async function (detail) {
+    console.log(detail)
+    // const userInfo = await app.wx_request("/api/v1/info/" + wx.getStorageSync('account'), "GET")
+    const scores = []
+    for (const key of Object.keys(detail)) {
+      scores.push({
+        "lesson_name":  key,
+        "pscj": '', //平时分
+        "credit": detail[key]['credit'], //学分
+        "qmcj": '', //卷面分
+        "grade_point": detail[key]['grade_point'], //绩点
+        "score": detail[key]['exam_result']
+      },)
+    }
+    // userInfo?.data?.detail?.name || 
+    const data = {
+      "account": wx.getStorageSync('account'),
+      "real_name": '',
+      "year": 2021,
+      "term":1,
+      "score": scores,
+      "rank": {
+          "avgGpa": 233.3,
+          "class_rank": 1,
+          "credits": 1234
+      }
+    }
+    return data
   }
 });

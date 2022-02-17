@@ -20,7 +20,7 @@ Page({
         {
           id: 'cj',
           name: '成绩查询',
-          disabled: true,
+          disabled: false,
           guest_view: false,
           student_disable: false,
           teacher_disabled: true,
@@ -159,10 +159,10 @@ Page({
     var _this = this;
     app.loginLoad().then(function() {
       _this.initButton();
-      _this.getScheduleCard()
+      _this.updateScheduleCard()
       wx.showToast({
         title: '刷新成功',
-        icon: 'success',
+        icon:'none',
         duration: 1500
       });
       wx.stopPullDownRefresh();
@@ -189,9 +189,13 @@ Page({
         title: '免责声明',
         content: content,
         confirmColor: "#1f7bff",
-        showCancel: false
-      });
-      app.saveCache('mzsm', 1);
+        showCancel: false,
+        success:()=>{
+          app.saveCache('mzsm', 1);
+          app.session_login()
+        }
+      }
+      );
     }
   },
   initButton: function() {
@@ -311,6 +315,7 @@ Page({
       });
     }
     app.loginLoad().then(function() {
+      console.log('加载今日课表')
       app.wx_request("/api/v1/schedule/today/" + wx.getStorageSync('account'), "GET").then(
         function(res) {
           var data = res.data.detail
@@ -326,7 +331,34 @@ Page({
       kbRender(info)
     })
   },
-  
+  updateScheduleCard: function() {
+    var _this = this;
+    //课表渲染
+    function kbRender(info) {
+      _this.setData({
+        'card.kb.data': info,
+        'card.kb.show': true,
+        'card.kb.nothing': !info.length,
+        'remind': ''
+      });
+    }
+    app.loginLoad().then(function() {
+      console.log('加载今日课表')
+      app.wx_request("/api/v1/schedule/today/update", "GET").then(
+        function(res) {
+          var data = res.data.detail
+          kbRender(data)
+        }
+      ).catch(err => {
+        var info = []
+        kbRender(info)
+        console.log("error",err)
+      })
+    }).catch(err => {
+      var info = []
+      kbRender(info)
+    })
+  },
   getMealcardCard: function() {
     var _this = this;
     //一卡通渲染
