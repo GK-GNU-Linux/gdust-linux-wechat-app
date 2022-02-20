@@ -40,7 +40,7 @@
         <!-- 头部星期数 -->
         <view class="kb-title blur-area {{blur?'blur':''}}">
           <block wx:if="{{week != '*'}}">
-            <view wx:for="{{dates[week-1]}}" wx:key="date" class="kb-title-item">
+            <view wx:for="{{dates[week]}}" wx:key="date" class="kb-title-item">
               <text class="kb-date">{{item.date === 1 ? item.month+'月' : item.date}}</text>
               <text>周{{_days[index]}}</text>
             </view>
