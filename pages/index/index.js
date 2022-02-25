@@ -26,6 +26,15 @@ Page({
           teacher_disabled: true,
           offline_disabled: false
         },
+        {
+          id: 'eat',
+          name: '吃什么鸭',
+          disabled: false,
+          guest_view: true,
+          student_disable: false,
+          teacher_disabled: false,
+          offline_disabled: true
+        },
         // {
         //   id: 'kjs',
         //   name: '空教室',
@@ -160,11 +169,11 @@ Page({
     app.loginLoad().then(function() {
       _this.initButton();
       _this.updateScheduleCard()
-      wx.showToast({
-        title: '刷新成功',
-        icon:'none',
-        duration: 1500
-      });
+        wx.showToast({
+          title: '刷新中',
+          icon:'none',
+          duration: 1500
+        })
       wx.stopPullDownRefresh();
     }).catch(function(e) {
       console.log(e)

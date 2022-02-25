@@ -1,3 +1,4 @@
+// pages/core/eat/eat.js
 Page({
 
   /**
@@ -60,10 +61,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return {
-      title: '喵话题 - 知无不谈，就你话多',
-      path: `/pages/index/index?r=/pages/core/mht/mht`,
-      imageUrl: "https://qn.gxgk.cc/ui/topic_share.jpg"
-    };
+
   }
 })

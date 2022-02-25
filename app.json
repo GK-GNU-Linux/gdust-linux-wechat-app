@@ -3,27 +3,13 @@
     "pages/index/index",
     "pages/authorize/index",
     "pages/core/kb/kb",
-    "pages/core/ykt/ykt",
     "pages/core/cj/cj",
-    "pages/core/jy/jy",
-    "pages/core/xs/xs",
-    "pages/core/ks/ks",
-    "pages/core/zs/zs",
-    "pages/core/kjs/kjs",
-    "pages/core/zs/detail/detail",
-    "pages/core/mht/mht",
-    "pages/news/news",
-    "pages/news/xy/xy_detail",
-    "pages/news/xb/xb_detail",
-    "pages/news/jw/jw_detail",
-    "pages/news/xm/xm_detail",
     "pages/more/more",
     "pages/more/login",
     "pages/more/append",
     "pages/more/issues",
     "pages/more/about",
-    "pages/setting/index",
-    "pages/core/bbq/bbq"
+    "pages/core/eat/eat"
   ],
   "window": {
     "navigationBarBackgroundColor": "#079df2",
@@ -61,5 +47,6 @@
     "uploadFile": 30000,
     "downloadFile": 30000
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }

@@ -1,6 +1,6 @@
 //kb.js
 let isAdShowed = false
-//获取应用实例
+//获取应用实例233
 var app = getApp();
 Page({
   data: {
