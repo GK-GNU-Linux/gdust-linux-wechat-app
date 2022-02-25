@@ -15,7 +15,10 @@ Page({
       grade: '',
       semester: ''
     },
-    share_id: ''
+    cjDatas: {},
+    share_id: '',
+    currentTop: 0,
+    onReachBottom: false
   },
   //分享
   onShareAppMessage: function() {
@@ -35,11 +38,14 @@ Page({
   //下拉更新
   onPullDownRefresh: function() {
     var _this = this;
-    _this.getData(_this.data.share_id);
-    wx.showToast({
-      icon: 'none',
-      title: '更新中',
+    app.wx_request("/api/v1/score/cache", "DELETE").then(()=>{
+      _this.getData(_this.data.share_id);
+      wx.showToast({
+        icon: 'none',
+        title: '更新中',
+      })
     })
+
   },
   onLoad: function(options) {
     var _this = this;
@@ -72,17 +78,53 @@ Page({
   },
   getData: function() { //share_id
     var _this = this;
-    // wx.getStorageSync('account')
-    app.wx_request("/api/v1/score/" + wx.getStorageSync('account'), "GET").then(
-      function(res) {
-        if (res.data && res.data.message === 'success') {
-          _this.makeData(res.data.detail).then(res=>{
-            _this.cjRender(res);
-          })
-
-        }
+    let years = []
+    const getReq = function (term, year) {
+      return new Promise((resolve, reject)=>{
+        app.wx_request(`/api/v1/score/${wx.getStorageSync('account')}?term=${term}&year=${year}`).then((res)=>{
+          resolve(res.data.detail)
+        }).catch(function (e) {
+          reject(e)
+        })
+      })
+    }
+    let that = this
+    const dealyears = function (currentYear) {
+      const reqs = []
+      for (let i = 0; i < 4; i++) {
+        const year = currentYear - i
+        const req1 = getReq(2,year)
+        const req2 = getReq(1,year)
+        reqs.push(req1)
+        reqs.push(req2)
       }
-    )
+      Promise.all(reqs).then((values) => {
+        const datas = []
+        for (const iterator of values) {
+          datas.push(that.makeData(iterator))
+        }
+        console.log(datas)
+        that.setData({
+          cjDatas: datas,
+          remind: ''
+        })
+        wx.stopPullDownRefresh()
+      })
+    }
+    app.wx_request("/api/v1/score/get_current_year").then((res)=>{
+      dealyears(res.data.detail.year)
+    })
+    // // wx.getStorageSync('account')
+    // app.wx_request("/api/v1/score/" + wx.getStorageSync('account'), "GET").then(
+    //   function(res) {
+    //     if (res.data && res.data.message === 'success') {
+    //       _this.makeData(res.data.detail).then(res=>{
+    //         _this.cjRender(res);
+    //       })
+
+    //     }
+    //   }
+    // )
     
     // var share_id = share_id;
     // wx.showNavigationBarLoading();
@@ -127,36 +169,67 @@ Page({
     // });
   },
   /**
-   * 制作适合课表显示的数据
-   * @param {*} params 
+   * 制作适合显示的学期成绩数据
+   * @param {*} detail 
    */
-  makeData: async function (detail) {
+  makeData:function (detail) {
     console.log(detail)
-    // const userInfo = await app.wx_request("/api/v1/info/" + wx.getStorageSync('account'), "GET")
+    // 分数数组
     const scores = []
-    for (const key of Object.keys(detail)) {
+    // 制作分数数组
+    for (const key of Object.keys(detail.score)) {
       scores.push({
         "lesson_name":  key,
         "pscj": '', //平时分
-        "credit": detail[key]['credit'], //学分
+        "credit": detail.score[key]['credit'], //学分
         "qmcj": '', //卷面分
-        "grade_point": detail[key]['grade_point'], //绩点
-        "score": detail[key]['exam_result']
+        "grade_point": detail.score[key]['grade_point'], //绩点
+        "score": detail.score[key]['exam_result']
       },)
     }
-    // userInfo?.data?.detail?.name || 
+    // 制作学期成绩总对象
     const data = {
       "account": wx.getStorageSync('account'),
       "real_name": '',
-      "year": 2021,
-      "term":1,
+      "year": detail.year,
+      "term":detail.term,
       "score": scores,
-      "rank": {
-          "avgGpa": 233.3,
-          "class_rank": 1,
-          "credits": 1234
-      }
     }
     return data
+  },
+  scrollTo: function (e) {
+    const top = e.currentTarget.dataset.top
+    const add = e.currentTarget.dataset.add
+    if(add) {
+      const tempTop = parseInt(this.data.currentTop) + parseInt(add)
+      wx.pageScrollTo({
+        duration: 800,
+        scrollTop: tempTop,
+      })
+      console.log(tempTop)
+    }
+    if(top) {
+      wx.pageScrollTo({
+        duration: 800,
+        scrollTop: top,
+      })
+    }
+  },
+  //监听屏幕滚动 判断上下滚动
+  onPageScroll: function (ev) {
+    if(ev.scrollTop < this.data.currentTop) {
+      this.setData({
+        onReachBottom: false
+      })
+    }
+    this.setData({
+      currentTop: ev.scrollTop
+    })
+  },
+  onReachBottom: function () {
+    console.log('到底了')
+    this.setData({
+      onReachBottom: true
+    })
   }
 });

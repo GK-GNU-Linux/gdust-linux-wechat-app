@@ -165,3 +165,21 @@
   justify-content: center;
   color: #999;
 }
+page {
+  position: relative;
+}
+.round-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  bottom: 50rpx;
+  right: 50rpx;
+  background-color: #ffda8f;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

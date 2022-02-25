@@ -17,32 +17,19 @@
       </view>
       <image class="cj-bg" src="/images/core/cj.png"></image>
     </view>
-    <view class="cj-info-ctn">
+    <view wx:for="{{cjDatas}}" wx:key="index">
+      <view class="cj-info-ctn" wx:if="{{item.score.length>0}}">
       <view class="cj-grade">
         <view class="cj-grade-term">
           <view class="cj-grade-fst">
-            <text>{{xqName}}</text> <!--学年学期 e.g 2021-2022 第一学期-->
+            <text>{{item.year + '年第' + item.term +'学期'}}</text> <!--学年学期 e.g 2021-2022 第一学期-->
           </view>
         </view>
         <view class="cj-grade-info">
         </view>
-        <!-- <view class="cj-grade-info">
-          <view class="cj-grade-jd">
-            <text class="cj-grade-jd-num">{{rank.avgGpa==null? '暂无':rank.avgGpa}}</text>
-            <text>学期绩点</text>
-          </view>
-          <view class="cj-grade-bj">
-            <text class="cj-grade-bj-num">{{rank.class_rank ? rank.class_rank: '暂无'}}</text>
-            <text>班级排名</text>
-          </view>
-          <view class="cj-grade-bj">
-            <text class="cj-grade-bj-num">{{rank.credits ? rank.credits: '暂无'}}</text>
-            <text>学期总学分</text>
-          </view>
-        </view> -->
       </view>
       <view class="cj-info-box">
-        <view class="cj-info" wx:for="{{cjInfo}}" wx:key="courseid">
+        <view class="cj-info" wx:for="{{item.score}}" wx:key="courseid">
           <text class="cj-info-name">{{item.lesson_name}}</text>
           <view class="cj-info-socre-box">
             <text class="cj-info-socre">学分：{{item.credit ? item.credit: '暂无'}}</text>
@@ -62,10 +49,16 @@
         </view>
       </view>
     </view>
-
+    </view>
     <view wx:if="{{update_time}}" class="cj-footer">
       <text>更新时间：{{update_time}}</text>
     </view>
   </block>
+</view>
+<view class="round-btn" >
+  <image style="width: 50%;height: 50%;" data-add="300" bindtap="scrollTo" src="/images/core/down.png"></image>
+</view>
+<view class="round-btn" data-top="0" bindtap="scrollTo" wx:if="{{onReachBottom}}">
+  <image style="width: 50%;height: 50%;transform: rotate(180deg);" src="/images/core/down.png"></image>
 </view>
 <!-- <ad unit-id="adunit-d2939165cbf1b7dc"></ad> -->
