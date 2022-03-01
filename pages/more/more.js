@@ -13,7 +13,7 @@ Page({
   },
   getData: function () {
     var _this = this;
-    app.wx_request("/api/v1/info/" + wx.getStorageSync('account'), "GET").then(
+    app.wx_request("/api/v1/info", "GET").then(
       function(res) {
         if (res.data && res.data.message === 'success') {
           _this.setData({
@@ -37,7 +37,7 @@ Page({
       duration: 1500
     });
       app.loginLoad().then(function() {
-        app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(function(res) {
+        app.wx_request("/api/v1/schedule", "GET").then(function(res) {
           if (res.data && res.data.message === 'success') {
             var data = res.data.detail
             wx.setStorageSync('schedule', data)

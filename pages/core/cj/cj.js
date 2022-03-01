@@ -39,7 +39,7 @@ Page({
   onPullDownRefresh: function() {
     var _this = this;
     app.wx_request("/api/v1/score/cache", "DELETE").then(()=>{
-      _this.getData(_this.data.share_id);
+      _this.getData(_this.data.share_id, 'update');
       wx.showToast({
         icon: 'none',
         title: '更新中',
@@ -76,12 +76,12 @@ Page({
       remind: ''
     });
   },
-  getData: function() { //share_id
+  getData: function(type = 'get') { //share_id
     var _this = this;
     let years = []
     const getReq = function (term, year) {
       return new Promise((resolve, reject)=>{
-        app.wx_request(`/api/v1/score/${wx.getStorageSync('account')}?term=${term}&year=${year}`).then((res)=>{
+        app.wx_request(`/api/v1/score?term=${term}&year=${year}`).then((res)=>{
           resolve(res.data.detail)
         }).catch(function (e) {
           reject(e)
@@ -90,6 +90,19 @@ Page({
     }
     let that = this
     const dealyears = function (currentYear) {
+      if(app.cache['cjDatas'] && type == 'get') {
+        const datas = app.cache['cjDatas']
+        that.setData({
+          cjDatas: datas,
+          remind: ''
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '加载缓存',
+        })
+        wx.stopPullDownRefresh()
+        return
+      }
       const reqs = []
       for (let i = 0; i < 4; i++) {
         const year = currentYear - i
@@ -104,10 +117,14 @@ Page({
           datas.push(that.makeData(iterator))
         }
         console.log(datas)
-        that.setData({
-          cjDatas: datas,
-          remind: ''
-        })
+        if(datas) {
+          that.setData({
+            cjDatas: datas,
+            remind: ''
+          })
+          // 成绩缓存
+          app.saveCache('cjDatas', datas);
+        }
         wx.stopPullDownRefresh()
       })
     }
@@ -115,7 +132,7 @@ Page({
       dealyears(res.data.detail.year)
     })
     // // wx.getStorageSync('account')
-    // app.wx_request("/api/v1/score/" + wx.getStorageSync('account'), "GET").then(
+    // app.wx_request("/api/v1/score/", "GET").then(
     //   function(res) {
     //     if (res.data && res.data.message === 'success') {
     //       _this.makeData(res.data.detail).then(res=>{

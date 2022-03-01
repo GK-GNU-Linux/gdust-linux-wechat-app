@@ -4,6 +4,7 @@ var app = getApp();
 var mta = require('../../utils/mta_analysis.js')
 Page({
   data: {
+    notices:[{body: '暂无公告'}],
     banner: false,
     offline: false,
     remind: '',
@@ -29,7 +30,7 @@ Page({
         {
           id: 'eat',
           name: '吃什么鸭',
-          disabled: false,
+          disabled: true,
           guest_view: true,
           student_disable: false,
           teacher_disabled: false,
@@ -169,6 +170,7 @@ Page({
     app.loginLoad().then(function() {
       _this.initButton();
       _this.updateScheduleCard()
+      _this.getNotices()
         wx.showToast({
           title: '刷新中',
           icon:'none',
@@ -191,6 +193,7 @@ Page({
     var _this = this;
     mta.Page.init()
     _this.getScheduleCard()
+    _this.getNotices()
     var content = '使用本小程序(e广科)\r\n即代表同意以下条款：\r\n1.e广科提供内容或服务仅供于个人学习、研究或欣赏娱乐等用途。\r\n2.使用e广科绑定教务系统，即同意e广科代理取得教务系统个人相关信息，包括成绩与课表等\r\n3.e广科提供的内容均会缓存在e广科后台，用户使用时自动更新\r\n4.取得信息均以本校教务系统为准，e广科无法保证信息的实时性\r\n5.使用本工具风险由您自行承担，e广科不承担任何责任'
     if (!app.cache.mzsm) {
       // 免责声明
@@ -325,7 +328,7 @@ Page({
     }
     app.loginLoad().then(function() {
       console.log('加载今日课表')
-      app.wx_request("/api/v1/schedule/today/" + wx.getStorageSync('account'), "GET").then(
+      app.wx_request("/api/v1/schedule/today", "GET").then(
         function(res) {
           var data = res.data.detail
           kbRender(data)
@@ -368,65 +371,15 @@ Page({
       kbRender(info)
     })
   },
-  getMealcardCard: function() {
-    var _this = this;
-    //一卡通渲染
-    function yktRender(data) {
-      _this.setData({
-        'card.ykt.data.outid': data.outid,
-        'card.ykt.data.last_time': data.lasttime,
-        'card.ykt.data.balance': data.mainFare,
-        'card.ykt.show': true,
-        'remind': ''
-      });
-    }
-    if (app.cache.ykt) {
-      yktRender(app.cache.ykt);
-    }
-    return new Promise(function(resolve, reject) {
-      //获取一卡通数据
-      app.wx_request('/school_sys/api_mealcard').then(function(res) {
-        if (res.data && res.data.status === 200) {
-          yktRender(res.data.data);
-          app.saveCache('ykt', res.data.data);
-          resolve();
-        } else {
-          reject(res);
-        }
-      }).catch(function(res) {
-        app.removeCache('ykt');
-        reject();
-      });
-    })
-  },
-  getLibraryCard: function() {
-    var _this = this;
-    //借阅信息渲染
-    function jyRender(info) {
-      _this.setData({
-        'card.jy.data': info,
-        'card.jy.show': true,
-        'remind': ''
-      });
-    }
-    if (app.cache.jy) {
-      jyRender(app.cache.jy);
-    }
-    return new Promise(function(resolve, reject) {
-      //获取借阅信息
-      app.wx_request('/library/xcx_info').then(function(res) {
-        if (res.data && res.data.status === 200) {
-          jyRender(res.data.data);
-          app.saveCache('jy', res.data.data);
-          resolve();
-        } else {
-          reject(res);
-        }
-      }).catch(function(res) {
-        console.log(res)
-        app.removeCache('jy');
-        reject(res);
-      });
+  getNotices:function () {
+    const _this = this
+    app.wx_request("/api/v1/admin/notice", "GET").then((res)=>{
+      console.log(res.data.detail)
+      if(res.data.detail) {
+        _this.setData({
+          notices: res.data.detail
+        })
+      }
     })
   }
   

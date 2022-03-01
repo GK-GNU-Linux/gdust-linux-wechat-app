@@ -338,8 +338,13 @@ Page({
       data.type = 'teacher';
     }
     //判断并读取缓存
-    if (app.cache.kb_all && !share_id) {
-      kbRender(app.cache.kb_all);
+    if (app.cache.kb) {
+      wx.showToast({
+        icon: 'none',
+        title: '加载缓存',
+      })
+      kbRender(app.cache.kb);
+      return
     }
     //课表渲染
     function kbRender(_data) {
@@ -384,21 +389,20 @@ Page({
       });
     }
     wx.showNavigationBarLoading();
+    // wx.getStorageSync('openid')
     //获取课表
-      app.wx_request("/api/v1/schedule/" + wx.getStorageSync('account'), "GET").then(
+      app.wx_request("/api/v1/schedule", "GET").then(
         function(res) {
           // 获取课表完成
           if(resolve) {
             resolve()
           }
           var data = res.data.detail
-          if (wx.getStorageSync('schedule') === '') {
+          if(data) {
             kbRender(data)
-          } else {
-            data = wx.getStorageSync('schedule');
-            kbRender(data)
-            wx.removeStorageSync('schedule')
+            app.saveCache('kb', data)
           }
+          wx.hideNavigationBarLoading();
         }
       ).catch(err => {
         var course = []
@@ -432,10 +436,6 @@ Page({
     if (app.user.is_teacher) {
       data.type = 'teacher';
     }
-    //判断并读取缓存
-    if (app.cache.kb_all && !share_id) {
-      kbRender(app.cache.kb_all);
-    }
     //课表渲染
     function kbRender(_data) {
       console.log(_data)
@@ -478,7 +478,6 @@ Page({
         remind: ''
       });
     }
-    wx.showNavigationBarLoading();
     //获取课表
       app.wx_request("/api/v1/schedule/update", "GET").then(
         function(res) {
@@ -487,17 +486,14 @@ Page({
             resolve()
           }
           var data = res.data.detail
-          if (wx.getStorageSync('schedule') === '') {
+          if(data) {
             kbRender(data)
-          } else {
-            data = wx.getStorageSync('schedule');
-            kbRender(data)
-            wx.removeStorageSync('schedule')
+            app.saveCache('kb', data)
           }
+          wx.hideNavigationBarLoading();
         }
       ).catch(err => {
         console.log("error",err)
       })
-      wx.hideNavigationBarLoading();
   }
 });

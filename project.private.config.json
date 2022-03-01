@@ -37,6 +37,13 @@
           "name": "吃什么鸭界面",
           "pathName": "pages/core/eat/eat",
           "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "课表页面",
+          "pathName": "pages/core/kb/kb",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }
